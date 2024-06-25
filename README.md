@@ -12,5 +12,5 @@
 * Axios
 * Tailwind CSS
 
-## Auntenticación
+### Auntenticación
 * JWT
