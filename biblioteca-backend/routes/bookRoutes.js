@@ -1,17 +1,19 @@
 import express from "express";
-import { createBook, deleteBook, findBookById, updateBook, searchBooks, PosibleBuscardor} from "../controllers/bookController.js";
+import { createBook, deleteBook, findBookById, updateBook, searchBooks, showBook} from "../controllers/bookController.js";
 import upload from '../services/multer.js';
 
 const router = express.Router();
 
-router.post("/create", upload.single('img'), createBook);
+router.post("/create", upload.single('pdf'), createBook);
 
-router.post("/delete", deleteBook);
+router.post("/delete/:id", deleteBook);
 
-router.post("/find", findBookById);
+router.get("/find/:id", findBookById);
 
-router.post("/update", updateBook);
+router.post("/update/:id", upload.single('pdf'), updateBook);
 
 router.post("/searchBooks", searchBooks);
+
+router.get('/pdf/:filename', showBook);
 
 export default router;

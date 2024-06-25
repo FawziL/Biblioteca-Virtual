@@ -1,23 +1,29 @@
 import Book from "../models/bookModel.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-export const createBook = async (req, res) => {
+const uploadDir = join(__dirname, '..', 'public');
+
+const createBook = async (req, res) => {
     try {
         const { name, publicationYear, category, author } = req.body;
-        const { pdfLocation } = req.file.filename
 
-        console.log(req.body)
-        console.log(pdfLocation, req.file)
+        const pdfLocation = req.file ? `uploads/${req.file.filename}` : null;
 
         if (!name || !publicationYear || !category || !author || !pdfLocation) {
             throw new Error('All fields are required.');
         }
-
+        
         const existingBook = await Book.findOne({where: { name, publicationYear }});
           
         if (existingBook) {
             throw new Error('A book with the same name and year already exists.');
         }
-
+        
         const existingPDF = await Book.findOne({where: { pdfLocation }});
           
         if (existingPDF) {
@@ -46,7 +52,7 @@ export const createBook = async (req, res) => {
     }
 };
   
-export const deleteBook = async (req, res) => {
+const deleteBook = async (req, res) => {
     try {
         const { id } = req.params;
   
@@ -65,7 +71,14 @@ export const deleteBook = async (req, res) => {
   
       // Eliminar el libro
         await book.destroy();
-  
+
+      // Elimina el archivo
+
+        const filePath = path.join(uploadDir, book.pdfLocation)
+        if(filePath){
+            fs.unlinkSync(filePath);
+        }
+
       // Enviar respuesta de éxito
         res.status(200).json({ message: 'Book deleted successfully.' });
 
@@ -75,11 +88,11 @@ export const deleteBook = async (req, res) => {
     }
 };
 
-export const findBookById = async (req, res) => {
+const findBookById = async (req, res) => {
     try {
         const { id } = req.params;
   
-      // Validar que el ID sea proporcionado
+        // Validar que el ID sea proporcionado
         if (!id) {
           throw new Error('ID is required.');
         }
@@ -96,15 +109,16 @@ export const findBookById = async (req, res) => {
         res.status(200).json(book);
 
     } catch (error) {
-      // Manejar errores
+        // Manejar errores
         res.status(500).json({ error: error.message });
     }
 };
 
-export const updateBook = async (req, res) => {
+const updateBook = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, publicationYear, category, author, pdfLocation } = req.body;
+        const { name, publicationYear, category, author } = req.body;
+        const pdfLocation = req.file ? `uploads/${req.file.filename}` : null;
     
         // Validar que el ID sea proporcionado
         if (!id) {
@@ -118,14 +132,18 @@ export const updateBook = async (req, res) => {
         if (!book) {
           return res.status(404).json({ error: 'Book not found.' });
         }
-    
+        if(pdfLocation){
+            const filePath = path.join(uploadDir, book.pdfLocation)
+            fs.unlinkSync(filePath);
+        }
+
         // Actualizar los detalles del libro
         book.name = name || book.name;
         book.publicationYear = publicationYear || book.publicationYear;
         book.category = category || book.category;
         book.author = author || book.author;
         book.pdfLocation = pdfLocation || book.pdfLocation;
-    
+
         // Guardar los cambios
         await book.save();
     
@@ -133,12 +151,12 @@ export const updateBook = async (req, res) => {
         res.status(200).json(book);
 
     } catch (error) {
-      // Manejar errores
+        // Manejar errores
         res.status(500).json({ error: error.message });
     }
 };
 
-export const searchBooks = async (req, res) => {
+const searchBooks = async (req, res) => {
     try {
         const { query } = req.query;
     
@@ -161,12 +179,28 @@ export const searchBooks = async (req, res) => {
         res.status(200).json(books);
 
     } catch (error) {
-      // Manejar errores
+        // Manejar errores
         res.status(500).json({ error: error.message });
     }
 };
 
-export const PosibleBuscardor = async (req, res) => {
+const showBook = async (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join(uploadDir, '/uploads', filename);
+
+    try {
+        if (fs.existsSync(filePath)) {
+            res.sendFile(filePath);
+        } else {
+            res.status(404).json({ error: 'File not found' });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+const PosibleBuscardor = async (req, res) => {
     try {
         let { query, page, limit } = req.query;
     
@@ -216,3 +250,5 @@ export const PosibleBuscardor = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+export { createBook, deleteBook, findBookById, updateBook, searchBooks, showBook, PosibleBuscardor };
