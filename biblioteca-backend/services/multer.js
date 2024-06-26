@@ -1,6 +1,7 @@
 import multer from 'multer';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -11,10 +12,17 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + '&' + file.originalname);
+    // Verificar la extensión del archivo
+    if (file.originalname.endsWith('.pdf')) {
+      cb(null, file.fieldname + '&' + file.originalname);
+    } else {
+      cb(new Error('Solo se permiten archivos PDF'), null);
+    }
   }
 });
 
-const upload = multer({ storage });
+const upload = multer({ 
+  storage
+});
 
 export default upload;

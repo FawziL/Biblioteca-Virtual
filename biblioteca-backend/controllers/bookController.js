@@ -12,7 +12,7 @@ const createBook = async (req, res) => {
     try {
         const { name, publicationYear, category, author } = req.body;
 
-        const pdfLocation = req.file ? `uploads/${req.file.filename}` : null;
+        const pdfLocation = req.file ? req.file.filename : null;
 
         if (!name || !publicationYear || !category || !author || !pdfLocation) {
             throw new Error('All fields are required.');
@@ -185,8 +185,8 @@ const searchBooks = async (req, res) => {
 };
 
 const showBook = async (req, res) => {
-    const { filename } = req.params;
-    const filePath = path.join(uploadDir, '/uploads', filename);
+    const { pdfLocation } = req.params;
+    const filePath = path.join(uploadDir, '/uploads', pdfLocation);
 
     try {
         if (fs.existsSync(filePath)) {
@@ -251,4 +251,37 @@ const PosibleBuscardor = async (req, res) => {
     }
 };
 
-export { createBook, deleteBook, findBookById, updateBook, searchBooks, showBook, PosibleBuscardor };
+const getAll = async (req, res) => {
+  try {
+    console.log("HOLAAAAAAAAAAA")
+    // Obtener todos los libros de la base de datos
+    const books = await Book.findAll();
+
+    // Si no hay libros, enviar un mensaje correspondiente
+    if (books.length === 0) {
+      res.status(204).json({ message: 'No se encontraron libros.' });
+      return;
+    }
+
+    // Transformar los libros en un formato adecuado para la respuesta
+    const formattedBooks = books.map(book => {
+      return {
+        id: book.id,
+        name: book.name,
+        publicationYear: book.publicationYear,
+        category: book.category,
+        author: book.author,
+        pdfLocation: book.pdfLocation,
+      };
+    });
+
+    // Enviar la respuesta con la lista de libros formateados
+    res.status(200).json({ books: formattedBooks });
+  } catch (error) {
+    console.error('Error al obtener libros:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+export { createBook, deleteBook, findBookById, updateBook, searchBooks, showBook, getAll, PosibleBuscardor };
