@@ -5,13 +5,10 @@ import Register from './pages/Register';
 import Books from './pages/Books';
 import CreateBook from './pages/createBook';
 import ShowBook from './pages/ShowBook';
-import Navbar from './components/Navbar';
+import EditBook from './pages/EditBook';
+import Navbar from './components/NavBar/Navbar';
 import PrivateRoute from './services/PrivateRoute';
-
-/*
-import BookDetail from './pages/BookDetail';
-import CreateBook from './pages/CreateBook';
-import EditBook from './pages/EditBook';*/
+import SearchBooks from './components/SearchBook/SearchBooks';
 
 function App() {
   return (
@@ -20,9 +17,11 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
-        <Route path="/showBook" element={<ShowBook />} />
+        <Route path="/search" element={<SearchBooks />} />
         <Route path="/newBook" element={<PrivateRoute><CreateBook /></PrivateRoute>} />
         <Route path="/books" element={<PrivateRoute><Books /></PrivateRoute>} />
+        <Route path="/editBook/:id" element={<PrivateRoute><EditBook /></PrivateRoute>} />
+        <Route path="/showBook/:pdfLocation" element={<PrivateRoute><ShowBook /></PrivateRoute>} />
       </Routes>
     </Router>
   );

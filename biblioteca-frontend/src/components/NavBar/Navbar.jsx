@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logout from '../pages/Logout';
+import Logout from '../../pages/Logout';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -9,6 +9,9 @@ const Navbar = () => {
       <ul>
         <li>
           <Link to="/books">Books</Link>
+        </li>
+        <li>
+          <Link to="/search">Search</Link>
         </li>
         <li>
           <Link to="/newBook">New Book</Link>

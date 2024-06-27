@@ -1,6 +1,7 @@
 import Book from "../models/bookModel.js";
 import fs from "fs";
 import path from "path";
+import { Op } from 'sequelize';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
@@ -73,8 +74,8 @@ const deleteBook = async (req, res) => {
         await book.destroy();
 
       // Elimina el archivo
-
-        const filePath = path.join(uploadDir, book.pdfLocation)
+      
+        const filePath = path.join(uploadDir,'/uploads', book.pdfLocation)
         if(filePath){
             fs.unlinkSync(filePath);
         }
@@ -114,7 +115,7 @@ const findBookById = async (req, res) => {
     }
 };
 
-const updateBook = async (req, res) => {
+const updateBook = async (req, res) => {9
     try {
         const { id } = req.params;
         const { name, publicationYear, category, author } = req.body;
@@ -184,6 +185,23 @@ const searchBooks = async (req, res) => {
     }
 };
 
+const searchBook = async (req, res) => {
+  const { name, author, publicationYear, category } = req.query;
+  let query = {};
+  
+  if (name) query.name = { [Op.iLike]: `%${name}%` };
+  if (author) query.author = { [Op.iLike]: `%${author}%` };
+  if (publicationYear) query.publicationYear = publicationYear;
+  if (category) query.category = { [Op.iLike]: `%${category}%` };
+
+  try {
+    const books = await Book.findAll({ where: query });
+    res.json(books);
+  } catch (error) { 
+    res.status(500).json({ error: 'Error searching for books' });
+  }
+};
+
 const showBook = async (req, res) => {
     const { pdfLocation } = req.params;
     const filePath = path.join(uploadDir, '/uploads', pdfLocation);
@@ -200,56 +218,6 @@ const showBook = async (req, res) => {
     }
 }
 
-const PosibleBuscardor = async (req, res) => {
-    try {
-        let { query, page, limit } = req.query;
-    
-        // Recortar y validar el parámetro de consulta
-        query = query ? query.trim() : null;
-    
-        if (!query) {
-          return res.status(400).json({ error: 'Query parameter is required.' });
-        }
-    
-        // Establecer valores por defecto para la paginación
-        page = page ? parseInt(page) : 1;
-        limit = limit ? parseInt(limit) : 10;
-        const offset = (page - 1) * limit;
-    
-        // Dividir el parámetro de consulta en términos individuales
-        const terms = query.split(' ').map(term => term.trim());
-    
-        // Construir la cláusula where con múltiples condiciones OR
-        const where = {
-          [Op.or]: [
-            { name: { [Op.iLike]: `%${query}%` } },
-            { publicationYear: { [Op.like]: `%${query}%` } },
-            { author: { [Op.iLike]: `%${query}%` } }
-          ]
-        };
-    
-        // Buscar libros utilizando la cláusula where y paginación
-        const books = await Book.findAndCountAll({
-          where,
-          limit,
-          offset
-        });
-    
-        // Calcular el total de páginas
-        const totalPages = Math.ceil(books.count / limit);
-    
-        // Enviar respuesta con los libros encontrados y la paginación
-        res.status(200).json({
-          books: books.rows,
-          currentPage: page,
-          totalPages
-        });
-        
-    } catch (error) {
-      // Manejar errores
-        res.status(500).json({ error: error.message });
-    }
-};
 
 const getAll = async (req, res) => {
   try {
@@ -284,4 +252,4 @@ const getAll = async (req, res) => {
 };
 
 
-export { createBook, deleteBook, findBookById, updateBook, searchBooks, showBook, getAll, PosibleBuscardor };
+export { createBook, deleteBook, findBookById, updateBook, searchBooks, searchBook, showBook, getAll };

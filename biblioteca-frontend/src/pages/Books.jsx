@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../services/Api';
 import { Link } from 'react-router-dom';
+import DeleteButton from '../components/DeleteButton/DeleteButton';
+import SearchBooks from '../components/SearchBook/SearchBooks';
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -14,7 +16,7 @@ const BookList = () => {
 
       try {
         const response = await api.get('/books/allBooks');
-        setBooks(response.data.books); 
+        setBooks(Array.isArray(response.data.books) ? response.data.books : []);
       } catch (error) {
         console.error('Error fetching books:', error);
         setError(error); 
@@ -25,6 +27,9 @@ const BookList = () => {
 
     fetchBooks();
   }, []); 
+  const handleDelete = (deletedPdfLocation) => {
+    setBooks(books.filter(book => book.pdfLocation !== deletedPdfLocation));
+  };
   return (
     <div>
       <h2>Todos los libros</h2>
@@ -36,7 +41,14 @@ const BookList = () => {
           <ul>
             {books.map((book) => (
               <li key={book.id}>
-                {book.name} - {book.author} ({book.publicationYear}) <Link to={book.publicationYear + "Hola"}>Ver</Link>
+                {book.name} - {book.author} ({book.publicationYear}) {book.id}
+                <Link to={`/showBook/${encodeURIComponent(book.pdfLocation)}`}>
+                  <button>Ver PDF</button>
+                </Link>
+                <Link to={`/editBook/${encodeURIComponent(book.id)}`}>
+                  <button>Editar PDF</button>
+                </Link>
+                <DeleteButton id={book.id} onDelete={handleDelete} />
               </li>
             ))}
           </ul>
