@@ -34,7 +34,6 @@ export const signup = async (req, res) => {
 		});
 		
 		await newUser.save();
-	
 		const token = jwt.sign({ userId: idCard }, secretKey);
 	
 		res.status(200).json({
@@ -73,6 +72,7 @@ export const login = async (req, res) => {
 			fullName: user.fullName,
 			email: user.email,
 			idCard: user.idCard,
+			admin: user.admin
 		});
 	} catch (error) {
 		console.log("Error in login controller", error.message);

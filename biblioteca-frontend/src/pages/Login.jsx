@@ -12,6 +12,7 @@ const Login = () => {
     try {
       const response = await api.post('/users/login', { email, password });
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('isAdmin', response.data.admin);
     } catch (error) {
       console.error('Error al iniciar sesión', error.response.data);
     }

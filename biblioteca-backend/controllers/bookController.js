@@ -218,10 +218,8 @@ const showBook = async (req, res) => {
     }
 }
 
-
 const getAll = async (req, res) => {
   try {
-    console.log("HOLAAAAAAAAAAA")
     // Obtener todos los libros de la base de datos
     const books = await Book.findAll();
 
@@ -250,6 +248,5 @@ const getAll = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 export { createBook, deleteBook, findBookById, updateBook, searchBooks, searchBook, showBook, getAll };

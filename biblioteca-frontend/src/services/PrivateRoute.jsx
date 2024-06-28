@@ -6,4 +6,12 @@ const PrivateRoute = ({ children }) => {
   return token ? children : <Navigate to="/login" />;
 };
 
-export default PrivateRoute;
+const PrivateRouteAdmin = ({ children }) => {
+  const token = localStorage.getItem('token');
+  const isAdmin = localStorage.getItem('isAdmin'); // Suponiendo que isAdmin está almacenado en el localStorage
+
+  // Verificar si hay token y si el usuario es administrador
+  return token && isAdmin === 'true' ? children : <Navigate to="/login" />;
+};
+
+export { PrivateRoute, PrivateRouteAdmin };

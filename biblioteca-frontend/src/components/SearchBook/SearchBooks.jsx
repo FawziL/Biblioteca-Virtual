@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import api from '../../services/Api';
+import { Link } from 'react-router-dom';
 
 const SearchBooks = () => {
   const [searchParams, setSearchParams] = useState({
@@ -66,6 +67,9 @@ const SearchBooks = () => {
             {books.map((book) => (
               <li key={book.id}>
                 {book.name} - {book.author} ({book.publicationYear}) {book.id}
+                <Link to={`/showBook/${encodeURIComponent(book.pdfLocation)}`}>
+                  <button>Ver PDF</button>
+                </Link>
               </li>
             ))}
           </ul>

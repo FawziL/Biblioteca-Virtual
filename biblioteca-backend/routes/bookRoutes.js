@@ -1,23 +1,24 @@
 import express from "express";
 import { createBook, deleteBook, findBookById, updateBook, searchBooks, searchBook, showBook, getAll} from "../controllers/bookController.js";
 import upload from '../services/multer.js';
+import { authenticateToken, authenticateAdmin } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/create", upload.single('pdf'), createBook);
+router.post("/create", upload.single('pdf'), authenticateToken, authenticateAdmin, createBook);
 
-router.delete("/delete/:id", deleteBook);
+router.delete("/delete/:id", authenticateToken, authenticateAdmin, deleteBook);
 
-router.get("/find/:id", findBookById);
+router.get("/find/:id", authenticateToken, authenticateAdmin, findBookById);
 
-router.post("/update/:id", upload.single('pdf'), updateBook);
+router.post("/update/:id", authenticateToken, authenticateAdmin, upload.single('pdf'), updateBook);
 
-router.get("/searchBooks", searchBooks);
+router.get('/allBooks', authenticateToken, authenticateAdmin, getAll);
 
-router.get("/searchBook", searchBook);
+router.get("/searchBooks", authenticateToken, searchBooks);
 
-router.get('/pdf/:pdfLocation', showBook);
+router.get("/searchBook", authenticateToken, searchBook);
 
-router.get('/allBooks', getAll);
+router.get('/pdf/:pdfLocation', authenticateToken, showBook);
 
 export default router;
