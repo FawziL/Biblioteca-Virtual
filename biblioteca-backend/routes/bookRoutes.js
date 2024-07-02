@@ -15,10 +15,10 @@ router.post("/update/:id", authenticateToken, authenticateAdmin, upload.single('
 
 router.get('/allBooks', authenticateToken, authenticateAdmin, getAll);
 
-router.get("/searchBooks", authenticateToken, searchBooks);
-
-router.get("/searchBook", authenticateToken, searchBook);
-
 router.get('/pdf/:pdfLocation', authenticateToken, showBook);
+
+router.get("/searchBooks", searchBooks);
+
+router.get("/searchBook", searchBook);
 
 export default router;

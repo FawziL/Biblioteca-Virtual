@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import api from '../../services/Api';
-import { Link } from 'react-router-dom';
+import './SearchBooks.css';
 
-const SearchBooks = () => {
+const SearchBooks = ({ onSearchResults }) => {
   const [searchParams, setSearchParams] = useState({
     name: '',
     author: '',
     publicationYear: '',
     category: '',
   });
-  const [books, setBooks] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,14 +22,14 @@ const SearchBooks = () => {
     e.preventDefault();
     try {
       const response = await api.get('/books/searchBook', { params: searchParams });
-      setBooks(response.data);
+      onSearchResults(response.data);
     } catch (error) {
       console.error('Error searching for books', error.response?.data || error.message);
     }
   };
 
   return (
-    <div>
+    <div className='searchSection'>
       <h2>Search Books</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -59,24 +58,6 @@ const SearchBooks = () => {
         </div>
         <button type="submit">Search</button>
       </form>
-
-      <div>
-        <h3>Search Results</h3>
-        {books.length > 0 ? (
-          <ul>
-            {books.map((book) => (
-              <li key={book.id}>
-                {book.name} - {book.author} ({book.publicationYear}) {book.id}
-                <Link to={`/showBook/${encodeURIComponent(book.pdfLocation)}`}>
-                  <button>Ver PDF</button>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No books found</p>
-        )}
-      </div>
     </div>
   );
 };

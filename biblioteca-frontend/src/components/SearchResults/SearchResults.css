@@ -1,0 +1,27 @@
+.resultsSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    margin-left: 26%;;
+}
+
+.cardBook{
+    background-color: rgb(85, 89, 89);
+    padding: 10px;
+    color: black;
+    width: 600px;
+    border-radius: 5px;
+    margin: 14px;
+}
+.cardBook h3, .cardBook  h4{
+    margin: 5px;
+}
+.buttons{
+    display: flex;
+    justify-content: end;
+}
+.buttons button{
+    margin-left: 10px;
+}

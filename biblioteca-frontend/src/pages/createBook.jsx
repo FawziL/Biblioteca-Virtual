@@ -69,38 +69,28 @@ const CreateBook = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <h2>Create Book</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
-          <label>
             Name:
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-          </label>
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Name"/>
         </div>
         <div>
-          <label>
             Publication Year:
-            <input type="number" name="publicationYear" value={formData.publicationYear} onChange={handleChange} required />
-          </label>
+            <input type="number" name="publicationYear" value={formData.publicationYear} onChange={handleChange} required placeholder="year"/>
         </div>
         <div>
-          <label>
             Category:
-            <input type="text" name="category" value={formData.category} onChange={handleChange} required />
-          </label>
+            <input type="text" name="category" value={formData.category} onChange={handleChange} required placeholder="Category"/>
         </div>
         <div>
-          <label>
             Author:
-            <input type="text" name="author" value={formData.author} onChange={handleChange} required />
-          </label>
+            <input type="text" name="author" value={formData.author} onChange={handleChange} required placeholder="Author Name"/>
         </div>
         <div>
-          <label>
             PDF:
-            <input type="file" name="pdf" onChange={handleFileChange} accept=".pdf" required />
-          </label>
+            <input type="file" name="pdf" onChange={handleFileChange} accept=".pdf" required placeholder="PDF FILE"/>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </div>
         <button type="submit">Create Book</button>

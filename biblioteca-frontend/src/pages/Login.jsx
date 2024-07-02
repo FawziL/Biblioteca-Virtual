@@ -1,43 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import api from '../services/Api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { AuthContext } from '../services/AuthProvider';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await api.post('/users/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('isAdmin', response.data.admin);
+      const token = response.data.token;
+      const isAdmin = response.data.admin;
+      
+      // Guardar en localStorage
+      localStorage.setItem('token', token);
+      localStorage.setItem('isAdmin', isAdmin);
+      
+      // Actualizar el estado global de autenticación
+      login(token);
+      
+      // Navegar a la página principal
+      navigate('/');
     } catch (error) {
       console.error('Error al iniciar sesión', error.response.data);
     }
   };
 
   return (
-    <div>
+    <div className='container'>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
+        <div>
+          Email:
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+        </div>
         <button type="submit">Login</button>
       </form>
+      <Link to="/signup">Register</Link>
     </div>
   );
 };
