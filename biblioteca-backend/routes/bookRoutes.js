@@ -9,13 +9,13 @@ router.post("/create", upload.single('pdf'), authenticateToken, authenticateAdmi
 
 router.delete("/delete/:id", authenticateToken, authenticateAdmin, deleteBook);
 
-router.get("/find/:id", authenticateToken, authenticateAdmin, findBookById);
-
 router.post("/update/:id", authenticateToken, authenticateAdmin, upload.single('pdf'), updateBook);
 
 router.get('/allBooks', authenticateToken, authenticateAdmin, getAll);
 
-router.get('/pdf/:pdfLocation', showBook);
+router.get("/find/:id", findBookById);
+
+router.get('/showpdf/:pdfLocation', showBook);
 
 router.get("/searchBooks", searchBooks);
 

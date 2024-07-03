@@ -6,7 +6,7 @@ import Register from './pages/Register';
 import Search from './pages/Search/Search';
 import Books from './pages/Books';
 import CreateBook from './pages/createBook';
-import ShowBook from './pages/ShowBook';
+import ShowBook from './pages/ShowPDF/ShowBook';
 import EditBook from './pages/EditBook';
 import Navbar from './components/NavBar/Navbar';
 import {PrivateRoute, PrivateRouteAdmin} from './services/PrivateRoute';
@@ -22,7 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/search" element={<Search />}/>
-          <Route path="/showBook/:pdfLocation" element={<ShowBook />}/>
+          <Route path="/showBook/:id" element={<ShowBook />} />
           <Route path="/newBook" element={<PrivateRouteAdmin><CreateBook /></PrivateRouteAdmin>} />
           <Route path="/books" element={<PrivateRouteAdmin><Books /></PrivateRouteAdmin>} />
           <Route path="/editBook/:id" element={<PrivateRouteAdmin><EditBook /></PrivateRouteAdmin>} />
