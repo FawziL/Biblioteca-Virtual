@@ -15,7 +15,7 @@ router.post("/update/:id", authenticateToken, authenticateAdmin, upload.single('
 
 router.get('/allBooks', authenticateToken, authenticateAdmin, getAll);
 
-router.get('/pdf/:pdfLocation', authenticateToken, showBook);
+router.get('/pdf/:pdfLocation', showBook);
 
 router.get("/searchBooks", searchBooks);
 

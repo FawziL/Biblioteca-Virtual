@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './SearchResults.css';
 
 const SearchResults = ({ books }) => {
-  console.log(books.length)
   return (
     <div className='resultsSection'>
       <h3>Search Results</h3>

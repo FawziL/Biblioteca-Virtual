@@ -1,15 +1,32 @@
 import './Home.css'
 import imgCTA from '../../assets/callToAction.avif'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm) {
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+    }
+  };
   return (
     <>
       <div className='home'>
         <h1>Busca y encuentra información digital</h1>
         <h2>Encontrarás libros con información relevante a tu carrera universitaria</h2>
-        <form action="/search">
-          <input type="text" className='search' placeholder='Buscar...'/>
-        </form>
+        <form onSubmit={handleSearch}>
+        <input 
+          type="text" 
+          className='search'
+          value={searchTerm} 
+          onChange={(e) => setSearchTerm(e.target.value)} 
+          placeholder="Buscar..."
+        />
+      </form>
         <a href="/search" className='advanceSearch'>Busqueda Avanzada</a>
       </div>
 

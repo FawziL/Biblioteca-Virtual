@@ -1,6 +1,7 @@
 import Book from "../models/bookModel.js";
 import fs from "fs";
 import path from "path";
+import sequelize from '../db/index.js'; 
 import { Op } from 'sequelize';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -160,22 +161,22 @@ const updateBook = async (req, res) => {9
 const searchBooks = async (req, res) => {
     try {
         const { query } = req.query;
-    
         if (!query) {
           return res.status(400).json({ error: 'Query parameter is required.' });
         }
-    
         // Buscar libros utilizando la cláusula where con múltiples condiciones OR
         const books = await Book.findAll({
           where: {
             [Op.or]: [
               { name: { [Op.iLike]: `%${query}%` } },
-              { publicationYear: { [Op.like]: `%${query}%` } },
-              { author: { [Op.iLike]: `%${query}%` } }
+              { author: { [Op.iLike]: `%${query}%` } },
+              // Convertir publicationYear a string antes de aplicar LIKE
+              sequelize.where(sequelize.cast(sequelize.col('publicationYear'), 'TEXT'), {
+                [Op.like]: `%${query}%`
+              })
             ]
           }
         });
-    
         // Enviar respuesta con los libros encontrados
         res.status(200).json(books);
 
