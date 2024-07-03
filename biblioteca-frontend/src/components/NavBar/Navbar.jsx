@@ -4,7 +4,7 @@ import { AuthContext } from '../../services/AuthProvider';
 import './Navbar.css';
 
 const Navbar = () => {
-  const { isLoggedIn, logout } = useContext(AuthContext);
+  const { isLoggedIn, isAdmin, logout } = useContext(AuthContext);
 
   return (
     <nav>
@@ -12,23 +12,19 @@ const Navbar = () => {
         <li>
           <Link to="/">Home</Link>
         </li>
-        
         <li>
           <Link to="/search">Search</Link>
         </li>
- 
-        {isLoggedIn && (
-          <li>
-            <Link to="/books">Books</Link>
-          </li>
+        {isAdmin && (
+          <>
+            <li>
+              <Link to="/books">Books</Link>
+            </li>
+            <li>
+              <Link to="/newBook">New Book</Link>
+            </li>
+          </>
         )}
-
-        {isLoggedIn && (
-          <li>
-            <Link to="/newBook">New Book</Link>
-          </li>
-        )}
-
         {isLoggedIn ? (
           <li>
             <Link onClick={logout}>Logout</Link>
@@ -44,3 +40,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

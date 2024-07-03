@@ -10,7 +10,7 @@ const DeleteButton = ({ id, onDelete }) => {
     setError(null);
 
     try {
-      await api.delete(`books/delete/${encodeURIComponent(id)}`);
+      await api.delete(`/books/delete/${encodeURIComponent(id)}`);
       onDelete(id); // Notify parent component about deletion
     } catch (error) {
       console.error('Error deleting PDF:', error.response.data);

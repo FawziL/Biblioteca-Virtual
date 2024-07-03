@@ -22,7 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/search" element={<Search />}/>
-          <Route path="/showBook/:pdfLocation" element={<PrivateRoute><ShowBook /></PrivateRoute>} />
+          <Route path="/showBook/:pdfLocation" element={<ShowBook />}/>
           <Route path="/newBook" element={<PrivateRouteAdmin><CreateBook /></PrivateRouteAdmin>} />
           <Route path="/books" element={<PrivateRouteAdmin><Books /></PrivateRouteAdmin>} />
           <Route path="/editBook/:id" element={<PrivateRouteAdmin><EditBook /></PrivateRouteAdmin>} />

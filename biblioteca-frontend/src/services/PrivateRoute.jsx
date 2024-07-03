@@ -1,17 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
+import { AuthContext } from '../services/AuthProvider';
 
 const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
-  return token ? children : <Navigate to="/login" />;
+  const { isLoggedIn } = useContext(AuthContext);
+  return isLoggedIn ? children : <Navigate to="/" />;
 };
 
 const PrivateRouteAdmin = ({ children }) => {
-  const token = localStorage.getItem('token');
-  const isAdmin = localStorage.getItem('isAdmin'); // Suponiendo que isAdmin está almacenado en el localStorage
-
-  // Verificar si hay token y si el usuario es administrador
-  return token && isAdmin === 'true' ? children : <Navigate to="/login" />;
+  const { isLoggedIn, isAdmin } = useContext(AuthContext);
+  return isLoggedIn && isAdmin ? children : <Navigate to="/" />;
 };
 
 export { PrivateRoute, PrivateRouteAdmin };

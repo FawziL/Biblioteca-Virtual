@@ -66,38 +66,28 @@ const EditBook = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <h2>Edit Book</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
-          <label>
             Name:
-            <input type="text" name="name" value={formData.name} onChange={handleChange}/>
-          </label>
+            <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder='Name of book'/>
         </div>
         <div>
-          <label>
             Publication Year:
-            <input type="number" name="publicationYear" value={formData.publicationYear} onChange={handleChange}/>
-          </label>
+            <input type="number" name="publicationYear" value={formData.publicationYear} onChange={handleChange} placeholder='Publication Year'/>
         </div>
         <div>
-          <label>
             Category:
-            <input type="text" name="category" value={formData.category} onChange={handleChange}/>
-          </label>
+            <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder='Category'/>
         </div>
         <div>
-          <label>
             Author:
-            <input type="text" name="author" value={formData.author} onChange={handleChange}/>
-          </label>
+            <input type="text" name="author" value={formData.author} onChange={handleChange} placeholder='Author of Book'/>
         </div>
         <div>
-          <label>
             PDF:
-            <input type="file" name="pdf" onChange={handleFileChange} accept=".pdf"/>
-          </label>
+            <input type="file" name="pdf" onChange={handleFileChange} accept=".pdf" placeholder='Insert PDF'/>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </div>
         <button type="submit">Edit Book</button>

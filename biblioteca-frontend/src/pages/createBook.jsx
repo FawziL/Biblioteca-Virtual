@@ -74,11 +74,11 @@ const CreateBook = () => {
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
             Name:
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Name"/>
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Name of book"/>
         </div>
         <div>
             Publication Year:
-            <input type="number" name="publicationYear" value={formData.publicationYear} onChange={handleChange} required placeholder="year"/>
+            <input type="number" name="publicationYear" value={formData.publicationYear} onChange={handleChange} required placeholder="Publication Year"/>
         </div>
         <div>
             Category:
@@ -90,7 +90,7 @@ const CreateBook = () => {
         </div>
         <div>
             PDF:
-            <input type="file" name="pdf" onChange={handleFileChange} accept=".pdf" required placeholder="PDF FILE"/>
+            <input type="file" name="pdf" onChange={handleFileChange} accept=".pdf" required placeholder="INSERT PDF FILE"/>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </div>
         <button type="submit">Create Book</button>
@@ -100,4 +100,3 @@ const CreateBook = () => {
 };
 
 export default CreateBook;
-

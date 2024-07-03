@@ -13,20 +13,15 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await api.post('/users/login', { email, password });
-      const token = response.data.token;
-      const isAdmin = response.data.admin;
-      
-      // Guardar en localStorage
-      localStorage.setItem('token', token);
-      localStorage.setItem('isAdmin', isAdmin);
+      const { token, admin } = response.data;
       
       // Actualizar el estado global de autenticación
-      login(token);
+      login(token, admin);
       
       // Navegar a la página principal
       navigate('/');
     } catch (error) {
-      console.error('Error al iniciar sesión', error.response.data);
+      console.error('Error al iniciar sesión', error.response?.data || error.message);
     }
   };
 
