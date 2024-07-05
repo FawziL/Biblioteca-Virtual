@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../../services/Api';
 import SearchBooks from '../../components/SearchBook/SearchBooks';
 import SearchResults from '../../components/SearchResults/SearchResults';
@@ -12,6 +12,8 @@ const Search = () => {
   const [books, setBooks] = useState([]);
   const query = useQuery();
   const searchTerm = query.get('query');
+  const searchCategory = query.get('category');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -22,22 +24,41 @@ const Search = () => {
         } catch (error) {
           console.error('Error searching for books', error.response?.data || error.message);
         }
+      } else if (searchCategory) {
+        try {
+          const response = await api.get(`/books/category/${searchCategory}`);
+          setBooks(response.data);
+        } catch (error) {
+          console.error('Error fetching books by category', error.response?.data || error.message);
+        }
       }
     };
 
     fetchBooks();
-  }, [searchTerm]);
+  }, [searchTerm, searchCategory]);
 
   const handleSearchResults = (results) => {
     setBooks(results);
   };
 
+  const handleCategoryChange = (category) => {
+    const url = new URL(window.location);
+    if (category) {
+      url.searchParams.set('category', category);
+      url.searchParams.delete('query');
+    } else {
+      url.searchParams.delete('category');
+    }
+    navigate(url.pathname + url.search);
+  };
+
   return (
-    <div>
-      <SearchBooks onSearchResults={handleSearchResults} />
+    <div className='searchContainer'>
+      <SearchBooks onSearchResults={handleSearchResults} onCategoryChange={handleCategoryChange} />
       <SearchResults books={books} />
     </div>
   );
 };
 
 export default Search;
+

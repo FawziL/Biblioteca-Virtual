@@ -29,10 +29,10 @@ const Register = () => {
 
   return (
     <div className='container'>
-      <h2>Register</h2>
       <form onSubmit={handleSubmit}>
+      <h2>Register</h2>
         <div>
-        Name:
+          <p>Name:</p>
           <input
             type="text"
             value={fullName}
@@ -42,7 +42,7 @@ const Register = () => {
           />
         </div>
         <div>
-          Email:
+          <p>Email:</p>
           <input
             type="email"
             value={email}
@@ -52,7 +52,7 @@ const Register = () => {
           />
         </div>
         <div>
-          Id:
+          <p>Id:</p>
           <input
             type="number"
             value={idCard}
@@ -62,7 +62,7 @@ const Register = () => {
           />
         </div>
         <div>
-          Password:
+          <p>Password:</p>
           <input
             type="password"
             value={password}
@@ -72,7 +72,7 @@ const Register = () => {
           />
         </div>
         <div>
-          Password:
+          <p>Match Password:</p>
           <input
             type="password"
             value={confirmPassword}
@@ -83,7 +83,7 @@ const Register = () => {
         </div>
         <button type="submit">Register</button>
       </form>
-      <Link to="/login">Login</Link>
+      <Link to="/login">Already have an account? Login</Link>
     </div>
   );
 };

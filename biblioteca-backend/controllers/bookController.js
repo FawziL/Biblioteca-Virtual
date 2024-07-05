@@ -116,6 +116,36 @@ const findBookById = async (req, res) => {
     }
 };
 
+const findBookByCategory = async (req, res) => {
+  try {
+    const { category } = req.params;
+
+    // Validar que la categoría sea proporcionada
+    if (!category) {
+      throw new Error('Category is required.');
+    }
+
+    // Buscar los libros por categoría utilizando findAll
+    const books = await Book.findAll({
+      where: {
+        category: category
+      }
+    });
+
+    // Verificar si hay libros en la categoría
+    if (books.length === 0) {
+      return res.status(404).json({ error: 'No books found in this category.' });
+    }
+
+    // Enviar respuesta con los libros encontrados
+    res.status(200).json(books);
+
+  } catch (error) {
+    // Manejar errores
+    res.status(500).json({ error: error.message });
+  }
+};
+
 const updateBook = async (req, res) => {9
     try {
         const { id } = req.params;
@@ -250,4 +280,4 @@ const getAll = async (req, res) => {
   }
 };
 
-export { createBook, deleteBook, findBookById, updateBook, searchBooks, searchBook, showBook, getAll };
+export { createBook, deleteBook, findBookById, findBookByCategory, updateBook, searchBooks, searchBook, showBook, getAll };

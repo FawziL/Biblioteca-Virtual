@@ -1,21 +1,27 @@
 .resultsSection{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     flex-direction: column;
     margin: auto;
-    margin-left: 26%;;
+    margin-left: 52vh;
+    background-color: white;
+    min-height: 98vh;
 }
-
-.cardBook{
-    background-color: rgb(85, 89, 89);
-    padding: 10px;
+.resultsSection h2, .resultsSection h3{
     color: black;
-    width: 600px;
+}
+.cardBook{
+    background-color: rgb(230, 231, 231);
+    padding: 12px;
+    color: black;
+    width: 700px;
     border-radius: 5px;
     margin: 14px;
+    border-radius: .25rem;
+    box-shadow: 0 3px 2px 0 rgba(0,0,0,.25);
 }
-.cardBook h3, .cardBook  h4{
+.cardBook h2, .cardBook  h4{
     margin: 5px;
 }
 .buttons{

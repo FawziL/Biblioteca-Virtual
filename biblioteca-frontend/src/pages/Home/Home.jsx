@@ -1,5 +1,6 @@
 import './Home.css'
 import imgCTA from '../../assets/callToAction.avif'
+import Footer from '../../components/Footer/Footer';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,9 +38,11 @@ const Home = () => {
         <div className="text-container">
           <h2>Queremos brindar las mejores oportunidades para nuestros estudiantes</h2>
           <p>Con este nuevo catálogo podrás encontrar libros académicos necesarios para tu carrera.</p>
-          <button href="/search" className='advanceSearch'>Buscar libros</button>
+          <a href="/search"><button href="/search" className='advanceSearch'>Buscar libros</button></a>
         </div>
       </section>
+
+      <Footer/>
     </>
   );
 };

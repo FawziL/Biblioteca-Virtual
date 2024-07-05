@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../../services/Api';
 import './SearchBooks.css';
 
-const SearchBooks = ({ onSearchResults }) => {
+const SearchBooks = ({ onSearchResults, onCategoryChange }) => {
   const [searchParams, setSearchParams] = useState({
     name: '',
     author: '',
@@ -28,33 +28,37 @@ const SearchBooks = ({ onSearchResults }) => {
     }
   };
 
+  const handleCategoryClick = (category) => {
+    onCategoryChange(category);
+  };
+
   return (
     <div className='searchSection'>
       <h2>Search Books</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='searchForm'>
+      <h3>Categories</h3>
+      <div className='searchCategories'>
+        <a onClick={() => handleCategoryClick('Sátira')}>Sátira</a>
+        <a onClick={() => handleCategoryClick('Cuento de hadas')}>Cuento de hadas</a>
+        <a onClick={() => handleCategoryClick('psicologia')}>Psicología</a>
+        {/* Agrega más botones según tus categorías */}
+      </div>
+        <h3>Busqueda Avanzada</h3>
         <div>
-          <label>
-            Name:
-            <input type="text" name="name" value={searchParams.name} onChange={handleChange} />
-          </label>
+          <label>Name:</label>
+          <input type="text" name="name" value={searchParams.name} onChange={handleChange} placeholder='Name of the book' />
         </div>
         <div>
-          <label>
-            Author:
-            <input type="text" name="author" value={searchParams.author} onChange={handleChange} />
-          </label>
+          <label>Author:</label>
+          <input type="text" name="author" value={searchParams.author} onChange={handleChange} placeholder='Author of the book' />
         </div>
         <div>
-          <label>
-            Publication Year:
-            <input type="number" name="publicationYear" value={searchParams.publicationYear} onChange={handleChange} />
-          </label>
+          <label>Publication Year:</label>
+          <input type="number" name="publicationYear" value={searchParams.publicationYear} onChange={handleChange} placeholder='Publication Year' />
         </div>
         <div>
-          <label>
-            Category:
-            <input type="text" name="category" value={searchParams.category} onChange={handleChange} />
-          </label>
+          <label>Category:</label>
+          <input type="text" name="category" value={searchParams.category} onChange={handleChange} placeholder='Category of the book' />
         </div>
         <button type="submit">Search</button>
       </form>

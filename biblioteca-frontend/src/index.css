@@ -39,7 +39,7 @@ button:focus-visible {
 
 /*Forms*/
 .container{
-  height: 80vh;
+  min-height: 91.5vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -48,7 +48,7 @@ button:focus-visible {
 }
 .container form{
   color: black;
-  background-color: rgb(239, 241, 241);
+  background-color: rgb(230, 231, 231);
   padding: 16px;
   border-radius: 10px;
   border: none;
@@ -58,24 +58,49 @@ button:focus-visible {
   flex-direction: column;
   margin-bottom: 10px;
 }
-.container form div{
+.container form h2{
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  text-align: center;
+  border-color:  rgb(230, 231, 231);
+  border-bottom: #1a1a1a;
+  border-width: 2px;
+  border-style: solid;
+}
+.searchForm div{
   display: flex;
   justify-content: space-between;
   margin: 10px;
 }
+.container form div{
+  margin-bottom: 10px;
+}
 .container form input{
+  width: 92%;
+}
+.container form input, .searchForm div input{
   border-radius: 10px;
   border: none;
   padding: 10px;
 }
+.container form div p{
+  margin: 0px;
+}
+.searchForm div label{
+  padding-top: 10px;
+}
 
-/*FALTA EDITARLO*/
+
+/*Listo*/
 input[type="file"] {
-  width: 180px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
   cursor: pointer;
-  background-color: #a91d1d;
-  color: #1a1a1a;
+  color: white;
+  background-color: #333;
+}
+input[type="file"]::-webkit-file-upload-button {
+  display: none; /* Chrome, Safari */
+}
+input[type="file"]:hover {
+  background-color: #242424
 }
