@@ -30,3 +30,6 @@
     padding: 5px;
     margin: 8px;
 }
+.searchCategories a{
+    cursor: pointer;
+}

@@ -67,15 +67,15 @@
     position: relative;
     display: flex;
     align-items: center;
-  }
+}
   
-  .search {
+.search {
     padding-left: 20px; /* Espacio para el icono */
-  }
+}
   
-  .search-icon {
+.search-icon {
     position: absolute;
     right: 14px;
     top: 10px;
     color: #aaa; /* Color del icono */
-  }
+}

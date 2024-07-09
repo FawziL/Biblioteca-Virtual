@@ -13,23 +13,23 @@ import {PrivateRoute, PrivateRouteAdmin} from './services/PrivateRoute';
 import { AuthProvider } from './services/AuthProvider';
 
 function App() {
-  return (
-    <AuthProvider>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/search" element={<Search />}/>
-          <Route path="/showBook/:id" element={<ShowBook />} />
-          <Route path="/newBook" element={<PrivateRouteAdmin><CreateBook /></PrivateRouteAdmin>} />
-          <Route path="/books" element={<PrivateRouteAdmin><Books /></PrivateRouteAdmin>} />
-          <Route path="/editBook/:id" element={<PrivateRouteAdmin><EditBook /></PrivateRouteAdmin>} />
-        </Routes>
-      </Router>
-    </AuthProvider>
-  );
+    return (
+        <AuthProvider>
+            <Router>
+                <Navbar />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Register />} />
+                    <Route path="/search" element={<Search />}/>
+                    <Route path="/showBook/:id" element={<ShowBook />} />
+                    <Route path="/newBook" element={<PrivateRouteAdmin><CreateBook /></PrivateRouteAdmin>} />
+                    <Route path="/books" element={<PrivateRouteAdmin><Books /></PrivateRouteAdmin>} />
+                    <Route path="/editBook/:id" element={<PrivateRouteAdmin><EditBook /></PrivateRouteAdmin>} />
+                </Routes>
+            </Router>
+        </AuthProvider>
+    );
 }
 
 export default App;
