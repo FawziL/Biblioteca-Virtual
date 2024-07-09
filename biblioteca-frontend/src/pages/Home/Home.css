@@ -60,3 +60,22 @@
     padding: 1.2rem;
     text-align: center;
 }
+
+
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search {
+    padding-left: 20px; /* Espacio para el icono */
+  }
+  
+  .search-icon {
+    position: absolute;
+    right: 14px;
+    top: 10px;
+    color: #aaa; /* Color del icono */
+  }

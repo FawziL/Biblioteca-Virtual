@@ -19,15 +19,19 @@ const Home = () => {
       <div className='home'>
         <h1>Busca y encuentra información digital</h1>
         <h2>Encontrarás libros con información relevante a tu carrera universitaria</h2>
-        <form onSubmit={handleSearch}>
-        <input 
-          type="text" 
-          className='search'
-          value={searchTerm} 
-          onChange={(e) => setSearchTerm(e.target.value)} 
-          placeholder="Buscar..."
-        />
-      </form>
+        <form onSubmit={handleSearch} className="search-form">
+          <div className="search-container">
+            <input 
+              type="text" 
+              className="search" 
+              value={searchTerm} 
+              onChange={(e) => setSearchTerm(e.target.value)} 
+              placeholder="Buscar..."
+            />
+            <i className="fas fa-search search-icon"></i>
+          </div>
+        </form>
+
         <a href="/search" className='advanceSearch'>Busqueda Avanzada</a>
       </div>
 
