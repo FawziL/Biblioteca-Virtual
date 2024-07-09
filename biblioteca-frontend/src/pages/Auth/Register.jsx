@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../services/Api';
+import api from '../../services/Api';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ const Register = () => {
     <div className='container'>
       <form onSubmit={handleSubmit}>
       <h2>Register</h2>
-        <div>
+        <div className='field'>
           <p>Name:</p>
           <input
             type="text"
@@ -41,7 +41,7 @@ const Register = () => {
             required
           />
         </div>
-        <div>
+        <div className='field'>
           <p>Email:</p>
           <input
             type="email"
@@ -51,7 +51,7 @@ const Register = () => {
             required
           />
         </div>
-        <div>
+        <div className='field'>
           <p>Id:</p>
           <input
             type="number"
@@ -61,7 +61,7 @@ const Register = () => {
             required
           />
         </div>
-        <div>
+        <div className='field'>
           <p>Password:</p>
           <input
             type="password"
@@ -71,7 +71,7 @@ const Register = () => {
             required
           />
         </div>
-        <div>
+        <div className='field'>
           <p>Match Password:</p>
           <input
             type="password"

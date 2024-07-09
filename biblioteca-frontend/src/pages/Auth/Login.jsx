@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import api from '../services/Api';
+import api from '../../services/Api';
 import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from '../services/AuthProvider';
+import { AuthContext } from '../../services/AuthProvider';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -29,7 +29,7 @@ const Login = () => {
     <div className='container'> 
       <form onSubmit={handleSubmit}>
       <h2>Login</h2>
-        <div>
+        <div className='field'>
           <p>Email:</p>
           <input
             type="email"
@@ -39,7 +39,7 @@ const Login = () => {
             required
           />
         </div>
-        <div>
+        <div className='field'>
           <p>Password:</p>
           <input
             type="password"

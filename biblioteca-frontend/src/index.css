@@ -58,6 +58,10 @@ button:focus-visible {
   flex-direction: column;
   margin-bottom: 10px;
 }
+.field:has(input:required) p::after{
+  content: '*';
+  color: red;
+}
 .container form h2{
   padding-bottom: 4px;
   margin-bottom: 8px;

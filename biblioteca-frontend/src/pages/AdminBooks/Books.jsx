@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import SearchBooks from '../components/SearchBook/SearchBooks';
-import SearchResultsAdmin from '../components/SearchResultsAdmin/SearchResultsAdmin';
-import api from '../services/Api';
+import SearchBooks from '../../components/SearchBook/SearchBooks';
+import SearchResultsAdmin from '../../components/SearchResultsAdmin/SearchResultsAdmin';
+import api from '../../services/Api';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const useQuery = () => {
