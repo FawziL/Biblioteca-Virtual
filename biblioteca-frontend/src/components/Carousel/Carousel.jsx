@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import './Carousel.css';
-import imgCTA from '../../assets/photo-1472214103451-9374bd1c798e (1).jpg'
-import img2 from '../../assets/photo-1500530855697-b586d89ba3ee.jpg'
-import img3 from '../../assets/photo-1506748686214-e9df14d4d9d0.jpg'
-import img4 from '../../assets/photo-1506808547685-e2ba962ded60.jpg'
+import img1 from '../../assets/photo2.jpg'
+import img2 from '../../assets/photo1.jpg'
+import img3 from '../../assets/photo3.jpg'
+import img4 from '../../assets/photo4.jpg'
 
 export default function Component() {
   const carouselRef = useRef(null);
@@ -39,7 +39,7 @@ export default function Component() {
       type: 'Ciencia', 
       description: 'La ciencia es el estudio sistemático de la estructura y el comportamiento del mundo físico y natural a través de la observación y el experimento.', 
       link: '/search?category=ciencia',
-      img: imgCTA 
+      img: img1
     },
     { 
       type: 'Ficción', 
@@ -51,7 +51,7 @@ export default function Component() {
       type: 'Arte', 
       description: 'El arte abarca una amplia gama de actividades humanas creativas que expresan ideas y emociones, incluyendo la pintura, la escultura, la música y la literatura.', 
       link: '/search?category=arte',
-      img: imgCTA 
+      img: img1
     },
   ];
 

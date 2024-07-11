@@ -9,6 +9,7 @@
     top: 0;
     left: 0;
     z-index: 1;
+    background-color: #242424;
 }
 .searchSection h2{
     text-align: start;
@@ -32,4 +33,9 @@
 }
 .searchCategories a{
     cursor: pointer;
+}
+.searchSection button{
+    width: 91%;
+    margin-left: 10px;
+    padding: 8px;
 }

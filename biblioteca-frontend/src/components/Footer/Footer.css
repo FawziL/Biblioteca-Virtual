@@ -2,28 +2,21 @@
 footer {
     background-color: #3333334e;
     padding: 0.2em;
-    z-index: 2;
-    position: relative;
-    box-shadow: 1px 1px 5px #00000080;
-}
-  
-ul {
-    list-style: none;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    padding: 10px 20px 10px 80px;
+    box-shadow: 0px -5px 5px #00000080;
 }
-  
-li {
-    display: inline;
-    margin: 0px 10px 0px 10px;
+footer div{
+    width: 20%;
 }
-  
-a {
-    color: white;
-    text-decoration: none;
+footer h4{
+    margin: 5px;
+    margin-left: 0px;
 }
-  
-a:hover {
-    text-decoration: underline;
+footer a{
+    display: block;
 }
-  
+footer p{
+    margin: 3px;
+}

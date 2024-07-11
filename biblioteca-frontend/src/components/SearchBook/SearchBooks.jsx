@@ -60,7 +60,7 @@ const SearchBooks = ({ onSearchResults, onCategoryChange }) => {
                     <label>Category:</label>
                     <input type="text" name="category" value={searchParams.category} onChange={handleChange} placeholder='Category of the book' />
                 </div>
-                <button type="submit">Search</button>
+                <button className='buttonBlue' type="submit">Search</button>
               </form>
         </div>
     );
