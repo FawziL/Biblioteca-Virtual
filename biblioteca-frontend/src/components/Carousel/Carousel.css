@@ -1,0 +1,102 @@
+/* Component.css */
+.carousel-container {
+  width: 90%;
+  max-width: 96rem;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+
+.carousel-wrapper {
+  position: relative;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel-item {
+  position: relative;
+  flex-shrink: 0;
+  width: 80%;
+  height: 400px;
+  margin-bottom: 6px;
+  scroll-snap-align: center;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+@media (min-width: 640px) {
+  .carousel-item {
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .carousel-item {
+    width: 33.33%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-item {
+    width: 25%;
+  }
+}
+
+.carousel-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.carousel-category {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.carousel-description {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.carousel-button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff9a;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.25rem;
+}
+
+.carousel-button:hover {
+  background-color: #0057b39a;
+  text-decoration: none;
+}
+
+.carousel-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+  pointer-events: none;
+}

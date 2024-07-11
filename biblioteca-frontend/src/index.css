@@ -16,7 +16,13 @@
 body {
     margin: 0;
 }
-
+h1{
+    font-size: 2.2rem;
+    margin: 8px;
+}
+h2{
+    font-size: 1.8rem;
+}
 button {
     border-radius: 8px;
     border: 1px solid transparent;
