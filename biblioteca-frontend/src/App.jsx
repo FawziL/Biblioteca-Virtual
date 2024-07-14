@@ -8,6 +8,7 @@ import Books from './pages/AdminBooks/Books';
 import CreateBook from './pages/CreateBook/CreateBook';
 import ShowBook from './pages/ShowPDF/ShowBook';
 import EditBook from './pages/EditBook/EditBook';
+import FavoriteBooks from './pages/FavoriteBooks/FavoriteBooks.jsx';
 import Navbar from './components/NavBar/Navbar';
 import {PrivateRoute, PrivateRouteAdmin} from './services/PrivateRoute';
 import { AuthProvider } from './services/AuthProvider';
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/signup" element={<Register />} />
                     <Route path="/search" element={<Search />}/>
                     <Route path="/showBook/:id" element={<ShowBook />} />
+                    <Route path="/favoriteBooks" element={<PrivateRoute><FavoriteBooks /></PrivateRoute>} />
                     <Route path="/newBook" element={<PrivateRouteAdmin><CreateBook /></PrivateRouteAdmin>} />
                     <Route path="/books" element={<PrivateRouteAdmin><Books /></PrivateRouteAdmin>} />
                     <Route path="/editBook/:id" element={<PrivateRouteAdmin><EditBook /></PrivateRouteAdmin>} />

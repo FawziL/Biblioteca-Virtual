@@ -6,8 +6,8 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
-    if (token && config.url.includes('/books')) { // Solo enviar token en rutas protegidas
-        config.headers.Authorization = `Bearer ${token}`;
+    if (token && (config.url.includes('/books') || config.url.includes('/favoriteBooks'))) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 });

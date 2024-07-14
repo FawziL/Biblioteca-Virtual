@@ -1,24 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/index.js';
 
-sequelize.authenticate()
-.then(() => {
-    console.log('Connection has been established successfully.');
-})
-.catch(err => {
-    console.error('Unable to connect to the database:', err);
-});
-
-/*
-sequelize.sync({ force: true }) // 'force: true' recrea las tablas cada vez que se ejecuta la sincronización
-    .then(() => {
-    console.log('Database & tables created!');
-})
-    .catch(err => {
-    console.error('Error creating database tables:', err);
-});
-*/
-
 const Book = sequelize.define('Book', {
     id: {
         type: DataTypes.INTEGER,

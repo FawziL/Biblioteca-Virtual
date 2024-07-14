@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './BookCard.css';
+import FavoriteButton from '../FavoriteButton/FavoriteButton';
 
 const BookCard = ({ book }) => {
     return (
@@ -12,6 +13,7 @@ const BookCard = ({ book }) => {
                 <Link to={`/showBook/${encodeURIComponent(book.id)}`}>
                     <button>Ver PDF</button>
                 </Link>
+                <FavoriteButton bookId={book.id} />
             </div>
         </div>
     );

@@ -8,8 +8,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 3000;
+import './models/initModels.js';
 import userRoutes from './routes/userRoutes.js';
 import bookRoutes from './routes/bookRoutes.js';
+import favoriteBookRoutes from './routes/favoriteBookRoutes.js';
 
 const app = express();
 app.use(express.json())
@@ -24,6 +26,9 @@ app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 
 app.use('/api/users', userRoutes);
 app.use('/api/books', bookRoutes);
+app.use('/api/favoriteBooks', favoriteBookRoutes);
+
+
 app.use('/', (req, res) => {
     res.send("Holaaa");
 });
