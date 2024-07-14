@@ -13,6 +13,7 @@
 }
 .searchSection h2{
     text-align: start;
+    margin-bottom: 5px;
 }
 .searchCategories{
     display: flex;

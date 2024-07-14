@@ -39,8 +39,9 @@ const SearchBooks = ({ onSearchResults, onCategoryChange }) => {
                 <h3>Categories</h3>
                 <div className='searchCategories'>
                     <a onClick={() => handleCategoryClick('Sátira')}>Sátira</a>
-                    <a onClick={() => handleCategoryClick('Cuento de hadas')}>Cuento de hadas</a>
+                    <a onClick={() => handleCategoryClick('Ciencia')}>Ciencia</a>
                     <a onClick={() => handleCategoryClick('psicologia')}>Psicología</a>
+                    <a onClick={() => handleCategoryClick('Fantasía')}>Fantasía</a>
                     {/* Agrega más botones según tus categorías */}
                 </div>
                 <h3>Busqueda Avanzada</h3>

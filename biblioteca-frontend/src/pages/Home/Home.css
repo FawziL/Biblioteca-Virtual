@@ -72,6 +72,7 @@
 /*Section CallBack*/
 
 .content-section {
+    height: 45vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,13 +121,13 @@
 /*Section CallToAction*/
 
 .CallToAction{
-    height: 60vh;
+    height: 50vh;
     margin: auto;
     background-image: url(../../assets/CallToAction.jpg);
     background-size: cover;
 }
 .CallToAction div{
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.7);
     height: 100%;
     width: 100%;
     display: flex;

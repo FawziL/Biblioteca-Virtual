@@ -48,7 +48,7 @@ button:focus-visible {
 
 /*Forms*/
 .container{
-    min-height: 91.5vh;
+    height: 88vh;
     width: 100%;
     display: flex;
     justify-content: center;

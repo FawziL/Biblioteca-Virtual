@@ -1,10 +1,9 @@
 /* Navbar.css */
 footer {
     background-color: #3333334e;
-    padding: 0.2em;
     display: flex;
     justify-content: space-evenly;
-    padding: 10px 20px 10px 80px;
+    padding: 20px 20px 20px 80px;
     box-shadow: 0px -5px 5px #00000080;
 }
 footer div{

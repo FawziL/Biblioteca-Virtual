@@ -26,31 +26,31 @@ export default function Component() {
     { 
       type: 'Sátira', 
       description: 'La sátira es una técnica literaria y de expresión artística que busca ridiculizar o criticar mediante la exageración y la ironía, aspectos sociales, políticos o personales.', 
-      link: '/search?category=satira',
+      link: '/search?category=Sátira',
       img: img4
     },
     { 
       type: 'Historia', 
       description: 'La historia es el estudio del pasado, especialmente cómo se relaciona con los humanos. Se analiza a través de documentos, relatos y restos arqueológicos.', 
-      link: '/search?category=historia',
+      link: '/search?category=Historia',
       img: img2 
     },
     { 
       type: 'Ciencia', 
       description: 'La ciencia es el estudio sistemático de la estructura y el comportamiento del mundo físico y natural a través de la observación y el experimento.', 
-      link: '/search?category=ciencia',
+      link: '/search?category=Ciencia',
       img: img1
     },
     { 
       type: 'Ficción', 
       description: 'La ficción es la creación de historias imaginarias que pueden basarse en la realidad pero incorporan elementos inventados o fantásticos.', 
-      link: '/search?category=ficcion',
+      link: '/search?category=Ficción',
       img: img3 
     },
     { 
       type: 'Arte', 
       description: 'El arte abarca una amplia gama de actividades humanas creativas que expresan ideas y emociones, incluyendo la pintura, la escultura, la música y la literatura.', 
-      link: '/search?category=arte',
+      link: '/search?category=Arte',
       img: img1
     },
   ];
