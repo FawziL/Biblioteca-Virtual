@@ -18,3 +18,12 @@
 .buttons button{
     margin-left: 10px;
 }
+
+.heart{
+    background-color: rgb(230, 231, 231);
+    padding: 0px;
+}
+.heart svg{
+    height: 40px;
+    width: 40px;
+}

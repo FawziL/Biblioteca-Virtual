@@ -5,7 +5,7 @@ import './SearchResults.css';
 
 const SearchResults = ({ books }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const resultsPerPage = 3; // Número de resultados por página
+    const resultsPerPage = 2; // Número de resultados por página
 
     // Calcular el índice de los resultados que se mostrarán en la página actual
     const indexOfLastResult = currentPage * resultsPerPage;

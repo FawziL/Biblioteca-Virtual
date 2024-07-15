@@ -42,6 +42,7 @@ const SearchBooks = ({ onSearchResults, onCategoryChange }) => {
                     <a onClick={() => handleCategoryClick('Ciencia')}>Ciencia</a>
                     <a onClick={() => handleCategoryClick('psicologia')}>Psicología</a>
                     <a onClick={() => handleCategoryClick('Fantasía')}>Fantasía</a>
+                    <a onClick={() => handleCategoryClick('Pasantías')}>Pasantías</a>
                     {/* Agrega más botones según tus categorías */}
                 </div>
                 <h3>Busqueda Avanzada</h3>

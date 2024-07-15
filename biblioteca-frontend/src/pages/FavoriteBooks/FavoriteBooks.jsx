@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/Api';
 import BookCard from '../../components/BookCard/BookCard';
+import Pagination from '../../components/Pagination/Pagination';
 import './FavoriteBooks.css';
 
 const FavoriteBooks = () => {
     const [favoriteBooks, setFavoriteBooks] = useState([]);
+    const [error, setError] = useState();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchFavoriteBooks = async () => {
             try {
                 const response = await api.get('/favoriteBooks/getFavoriteBooks');
-                setFavoriteBooks(response.data)
-                setLoading(false);
+                if(response){
+                    setFavoriteBooks(response.data)
+                    setLoading(false);
+                }
             } catch (error) {
                 setError(error.response?.data || error.message);
                 setLoading(false);
@@ -20,6 +25,24 @@ const FavoriteBooks = () => {
 
         fetchFavoriteBooks();
     }, []);
+
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const resultsPerPage = 2; // Número de resultados por página
+
+    // Calcular el índice de los resultados que se mostrarán en la página actual
+    const indexOfLastResult = currentPage * resultsPerPage;
+    const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+    const currentResults = favoriteBooks.slice(indexOfFirstResult, indexOfLastResult);
+
+    // Funciones para manejar la navegación de páginas
+    const nextPage = () => {
+        setCurrentPage((prevPage) => prevPage + 1);
+    };
+
+    const prevPage = () => {
+        setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
+    };
 
     return (
         <div className="favoriteBooks">
@@ -31,6 +54,13 @@ const FavoriteBooks = () => {
                     {favoriteBooks.map(favBook => (
                         <BookCard key={favBook.id} book={favBook.Book} />
                     ))}
+                    <Pagination
+                        currentPage={currentPage}
+                        totalResults={favoriteBooks.length}
+                        resultsPerPage={resultsPerPage}
+                        nextPage={nextPage}
+                        prevPage={prevPage}
+                    />
                 </div>
             )}
         </div>
