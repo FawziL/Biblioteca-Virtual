@@ -6,6 +6,7 @@ import './FavoriteBooks.css';
 
 const FavoriteBooks = () => {
     const [favoriteBooks, setFavoriteBooks] = useState([]);
+    const [isFavorite, setisFavorite] = useState(true);
     const [error, setError] = useState();
     const [loading, setLoading] = useState(true);
 
@@ -52,7 +53,7 @@ const FavoriteBooks = () => {
             ) : (
                 <div className="books-grid">
                     {favoriteBooks.map(favBook => (
-                        <BookCard key={favBook.id} book={favBook.Book} />
+                        <BookCard key={favBook.id} book={favBook.Book} isFavorite={isFavorite}/>
                     ))}
                     <Pagination
                         currentPage={currentPage}

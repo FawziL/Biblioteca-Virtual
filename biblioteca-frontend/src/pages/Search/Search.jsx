@@ -10,6 +10,7 @@ const useQuery = () => {
 
 const Search = () => {
     const [books, setBooks] = useState([]);
+    const [favoriteBooks, setFavoriteBooks] = useState([]);
     const query = useQuery();
     const searchTerm = query.get('query');
     const searchCategory = query.get('category');
@@ -24,17 +25,27 @@ const Search = () => {
                 } catch (error) {
                     console.error('Error searching for books', error.response?.data || error.message);
                 }
-                } else if (searchCategory) {
-                    try {
-                        const response = await api.get(`/books/category/${searchCategory}`);
-                        setBooks(response.data);
-                    } catch (error) {
-                        console.error('Error fetching books by category', error.response?.data || error.message);
-                    }
-              }
+            } else if (searchCategory) {
+                try {
+                    const response = await api.get(`/books/category/${searchCategory}`);
+                    setBooks(response.data);
+                } catch (error) {
+                    console.error('Error fetching books by category', error.response?.data || error.message);
+                }
+            }
+        };
+
+        const fetchFavoriteBooks = async () => {
+            try {
+                const response = await api.get('/favoriteBooks/getFavoriteBooks');
+                setFavoriteBooks(response.data);
+            } catch (error) {
+                console.error('Error fetching favorite books', error.response?.data || error.message);
+            }
         };
 
         fetchBooks();
+        fetchFavoriteBooks();
     }, [searchTerm, searchCategory]);
 
     const handleSearchResults = (results) => {
@@ -55,10 +66,9 @@ const Search = () => {
     return (
         <div className='searchContainer'>
             <SearchBooks onSearchResults={handleSearchResults} onCategoryChange={handleCategoryChange} />
-            <SearchResults books={books} />
+            <SearchResults books={books} favoriteBooks={favoriteBooks} />
         </div>
     );
 };
 
 export default Search;
-

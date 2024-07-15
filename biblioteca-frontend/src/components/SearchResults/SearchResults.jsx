@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookCard from '../BookCard/BookCard';
 import Pagination from '../Pagination/Pagination';
+import api from '../../services/Api';
 import './SearchResults.css';
 
 const SearchResults = ({ books }) => {
     const [currentPage, setCurrentPage] = useState(1);
+    const [favoriteBooks, setFavoriteBooks] = useState([]);
     const resultsPerPage = 2; // Número de resultados por página
+
+    useEffect(() => {
+        const fetchFavoriteBooks = async () => {
+            try {
+                const response = await api.get('/favoriteBooks/getFavoriteBooks');
+                setFavoriteBooks(response.data);
+                console.log('Favorite Books:', response.data); // Verifica la estructura aquí
+            } catch (error) {
+                console.error('Error fetching favorite books', error.response?.data || error.message);
+            }
+        };
+        fetchFavoriteBooks();
+    }, []);
 
     // Calcular el índice de los resultados que se mostrarán en la página actual
     const indexOfLastResult = currentPage * resultsPerPage;
@@ -28,10 +43,13 @@ const SearchResults = ({ books }) => {
             {books.length === 0 ? (
                 <h3>No books found</h3>
             ) : (
-              <>
-                  {currentResults.map((book) => (
-                        <BookCard key={book.id} book={book} />
-                  ))}
+                <>
+                    {currentResults.map((book) => {
+                        const isFavorite = favoriteBooks.some(fav => {
+                            return fav.bookId === book.id;
+                        });
+                        return <BookCard key={book.id} book={book} isFavorite={isFavorite} />;
+                    })}
                     <Pagination
                         currentPage={currentPage}
                         totalResults={books.length}
@@ -39,10 +57,11 @@ const SearchResults = ({ books }) => {
                         nextPage={nextPage}
                         prevPage={prevPage}
                     />
-              </>
+                </>
             )}
         </div>
     );
 };
 
 export default SearchResults;
+
