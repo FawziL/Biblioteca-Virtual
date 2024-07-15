@@ -51,6 +51,7 @@ const Login = () => {
                     />
                 </div>
                 <button type="submit">Iniciar sesión</button>
+                <Link to="/requestPasswordReset">Did you forget your password? Cambiar contraseña</Link>
             </form>
             <Link to="/signup">Already haven't an account? Register</Link>
         </div>

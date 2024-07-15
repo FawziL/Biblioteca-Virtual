@@ -1,10 +1,14 @@
 import bcrypt from "bcrypt";
 import User from "../models/authModel.js";
 import jwt from "jsonwebtoken";
+import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 dotenv.config();
 
 const secretKey = process.env.JWT_SECRET;
+const resetTokenSecret = process.env.RESET_TOKEN_SECRET;
+const emailUser = process.env.EMAIL_USER;
+const emailPass = process.env.EMAIL_PASS;
 
 export const signup = async (req, res) => {
 	try {
@@ -87,4 +91,64 @@ export const logout = (req, res) => {
 		console.log("Error in logout controller", error.message);
 		res.status(500).json({ error: "Internal Server Error" });
 	}
+};
+
+export const requestPasswordReset = async (req, res) => {
+    const { email } = req.body;
+	console.log(email)
+
+    try {
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const resetToken = jwt.sign({ userId: user.idCard }, resetTokenSecret);
+        const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
+
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: emailUser,
+                pass: emailPass,
+            },
+        });
+
+        const mailOptions = {
+            from: emailUser,
+            to: user.email,
+            subject: 'Password Reset',
+            text: `Click here to reset your password: ${resetLink}`,
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ message: 'Password reset email sent' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const resetPassword = async (req, res) => {
+    const { token, newPassword } = req.body;
+		
+    try {
+        const decoded = jwt.verify(token, resetTokenSecret);
+
+        const user = await User.findByPk(decoded.userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        user.password = hashedPassword;
+        await user.save();
+
+        res.status(200).json({ message: 'Password has been reset' });
+		
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
