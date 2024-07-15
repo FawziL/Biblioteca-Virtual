@@ -58,35 +58,33 @@ const EditBook = () => {
                 },
             });
             console.log('Book created successfully:', response.data);
-            // Add any additional logic here after successful book creation
         } catch (error) {
             console.error('Error creating book:', error.response?.data || error.message);
-            // Handle book creation errors
         }
     };
 
     return (
         <div className='container'>
-            <h2>Edit Book</h2>
+            <h2>Editar libro</h2>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className='field'>
-                    <p>Name:</p>
+                    <p>Nombre del Libro:</p>
                     <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder='Name of book'/>
                 </div>
                 <div className='field'>
-                    <p>Publication Year:</p>
+                    <p>Año de Publicación:</p>
                     <input type="number" name="publicationYear" value={formData.publicationYear} onChange={handleChange} placeholder='Publication Year'/>
                 </div>
                 <div className='field'>
-                    <p>Category:</p>
+                    <p>Categoría:</p>
                     <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder='Category'/>
                 </div>
                 <div className='field'>
-                    <p>Author:</p>
+                    <p>Autor:</p>
                     <input type="text" name="author" value={formData.author} onChange={handleChange} placeholder='Author of Book'/>
                 </div>
                 <div className='field'>
-                    <p>PDF:</p>
+                    <p>Archivo PDF:</p>
                     <input type="file" name="pdf" onChange={handleFileChange} accept=".pdf" placeholder='Insert PDF'/>
                     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 </div>

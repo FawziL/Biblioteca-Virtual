@@ -30,10 +30,10 @@ const Register = () => {
     return (
         <div className='container'>
             <form onSubmit={handleSubmit}>
-                <h2>Register</h2>
+                <h2>Registro</h2>
                 <p>Ingresa tus credenciales para crear tu cuenta.</p>
                 <div className='field'>
-                    <p>Name:</p>
+                    <p>Nombre y Apellido:</p>
                     <input
                         type="text"
                         value={fullName}
@@ -43,7 +43,7 @@ const Register = () => {
                     />
                 </div>
                 <div className='field'>
-                    <p>Email:</p>
+                    <p>E-mail:</p>
                     <input
                         type="email"
                         value={email}
@@ -53,7 +53,7 @@ const Register = () => {
                     />
                 </div>
                 <div className='field'>
-                    <p>Id:</p>
+                    <p>Cédula:</p>
                     <input
                         type="number"
                         value={idCard}
@@ -63,7 +63,7 @@ const Register = () => {
                     />
                 </div>
                 <div className='field'>
-                    <p>Password:</p>
+                    <p>Contraseña:</p>
                     <input
                         type="password"
                         value={password}
@@ -73,7 +73,7 @@ const Register = () => {
                     />
                 </div>
                 <div className='field'>
-                    <p>Match Password:</p>
+                    <p>Repetir Contraseña:</p>
                     <input
                         type="password"
                         value={confirmPassword}
@@ -82,7 +82,7 @@ const Register = () => {
                         required
                     />
                 </div>
-                <button type="submit">Register</button>
+                <button type="submit">Registrarse</button>
             </form>
             <Link to="/login">Already have an account? Login</Link>
         </div>

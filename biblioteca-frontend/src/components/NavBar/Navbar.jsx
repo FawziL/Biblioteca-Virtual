@@ -13,30 +13,30 @@ const Navbar = () => {
                     <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/search">Search</Link>
+                    <Link to="/search">Busqueda</Link>
                 </li>
                 {isAdmin && (
                   <>
                       <li>
-                          <Link to="/books">Books</Link>
+                          <Link to="/books">Libros</Link>
                       </li>
                       <li>
-                          <Link to="/newBook">New Book</Link>
+                          <Link to="/newBook">Libro Nuevo</Link>
                       </li>
                   </>
                 )}
                 {isLoggedIn ? (
                     <>
                         <li>
-                            <Link to="/favoriteBooks">FavoriteBooks</Link>
+                            <Link to="/favoriteBooks">Libros Favoritos</Link>
                         </li>
                         <li>
-                            <Link onClick={logout}>Logout</Link>
+                            <Link onClick={logout}>Cerrar Sesión</Link>
                         </li>
                     </>
                 ) : (
                     <li>
-                        <Link to="/login">Login</Link>
+                        <Link to="/login">Iniciar Sesión</Link>
                     </li>
                 )}
             </ul>

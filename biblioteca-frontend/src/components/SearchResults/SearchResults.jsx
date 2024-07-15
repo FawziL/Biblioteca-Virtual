@@ -38,10 +38,10 @@ const SearchResults = ({ books }) => {
 
     return (
         <div className='resultsSection'>
-            <h2>Search Results</h2>
-            <h3>Total Results: {books.length}</h3>
+            <h2>Resultados de la búsqueda</h2>
+            <h3>Resultados Totales: {books.length}</h3>
             {books.length === 0 ? (
-                <h3>No books found</h3>
+                <h3>No se han encontrado resultados.</h3>
             ) : (
                 <>
                     {currentResults.map((book) => {

@@ -8,13 +8,13 @@ const Pagination = ({ currentPage, totalResults, resultsPerPage, nextPage, prevP
     return (
         <div className="pagination">
             <button onClick={prevPage} disabled={currentPage === 1}>
-                Previous
+                Anterior
             </button>
             <span>
-                Page {currentPage} of {Math.ceil(totalResults / resultsPerPage)}
+                Página {currentPage} de {Math.ceil(totalResults / resultsPerPage)}
             </span>
             <button onClick={nextPage} disabled={indexOfLastResult >= totalResults}>
-                Next
+                Siguiente
             </button>
         </div>
     );

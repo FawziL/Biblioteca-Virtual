@@ -31,7 +31,7 @@ const Login = () => {
                 <h2>Iniciar sesión</h2>
                 <p>Ingresa tus credenciales para acceder a tu cuenta.</p>
                 <div className='field'>
-                    <p>Email:</p>
+                    <p>E-mail:</p>
                     <input
                         type="email"
                         value={email}
@@ -41,7 +41,7 @@ const Login = () => {
                     />
                 </div>
                 <div className='field'>
-                    <p>Password:</p>
+                    <p>Contraseña:</p>
                     <input
                         type="password"
                         value={password}

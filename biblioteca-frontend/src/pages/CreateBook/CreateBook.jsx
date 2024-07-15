@@ -70,26 +70,26 @@ const CreateBook = () => {
 
     return (
         <div className='container'>
-            <h2>Create Book</h2>
+            <h2>Agregar Libro</h2>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className='field'>
-                    <p>Name:</p>
+                    <p>Nombre del Libro:</p>
                     <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Name of book"/>
                 </div>
                 <div className='field'>
-                    <p>Publication Year:</p>
+                    <p>Año de Publicación:</p>
                     <input type="number" name="publicationYear" value={formData.publicationYear} onChange={handleChange} required placeholder="Publication Year"/>
                 </div>
                 <div className='field'>
-                    <p>Category:</p>
+                    <p>Categoría:</p>
                     <input type="text" name="category" value={formData.category} onChange={handleChange} required placeholder="Category"/>
                 </div>
                 <div className='field'>
-                    <p>Author:</p>
+                    <p>Autor:</p>
                     <input type="text" name="author" value={formData.author} onChange={handleChange} required placeholder="Author Name"/>
                 </div>
                 <div className='field'>
-                    <p>PDF:</p>
+                    <p>Archivo PDF:</p>
                     <input type="file" name="pdf" onChange={handleFileChange} accept=".pdf" required placeholder="INSERT PDF FILE"/>
                     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 </div>
