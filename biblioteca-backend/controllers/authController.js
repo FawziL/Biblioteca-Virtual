@@ -1,16 +1,14 @@
 import bcrypt from "bcrypt";
 import User from "../models/authModel.js";
 import jwt from "jsonwebtoken";
-import nodemailer from 'nodemailer';
+import transporter from '../services/nodemailer.js'; 
 import dotenv from 'dotenv';
 dotenv.config();
 
 const secretKey = process.env.JWT_SECRET;
 const resetTokenSecret = process.env.RESET_TOKEN_SECRET;
-const emailUser = process.env.EMAIL_USER;
-const emailPass = process.env.EMAIL_PASS;
 
-export const signup = async (req, res) => {
+const signup = async (req, res) => {
 	try {
 		const { fullName, email, password, confirmPassword, idCard } = req.body;
 
@@ -51,7 +49,7 @@ export const signup = async (req, res) => {
 	}
 };
   
-export const login = async (req, res) => {
+const login = async (req, res) => {
 	try {
 		const { email, password } = req.body;
 	
@@ -84,7 +82,7 @@ export const login = async (req, res) => {
 	}
 };
   
-export const logout = (req, res) => {
+const logout = (req, res) => {
 	try {
 		res.status(200).json({ message: "Logged out successfully" });
 	} catch (error) {
@@ -93,9 +91,8 @@ export const logout = (req, res) => {
 	}
 };
 
-export const requestPasswordReset = async (req, res) => {
+const requestPasswordReset = async (req, res) => {
     const { email } = req.body;
-	console.log(email)
 
     try {
         const user = await User.findOne({ where: { email } });
@@ -105,14 +102,6 @@ export const requestPasswordReset = async (req, res) => {
 
         const resetToken = jwt.sign({ userId: user.idCard }, resetTokenSecret);
         const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
-
-        const transporter = nodemailer.createTransport({
-            service: 'Gmail',
-            auth: {
-                user: emailUser,
-                pass: emailPass,
-            },
-        });
 
         const mailOptions = {
             from: emailUser,
@@ -129,7 +118,7 @@ export const requestPasswordReset = async (req, res) => {
     }
 };
 
-export const resetPassword = async (req, res) => {
+const resetPassword = async (req, res) => {
     const { token, newPassword } = req.body;
 		
     try {
@@ -152,3 +141,5 @@ export const resetPassword = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+export {signup, login, logout, requestPasswordReset, resetPassword}

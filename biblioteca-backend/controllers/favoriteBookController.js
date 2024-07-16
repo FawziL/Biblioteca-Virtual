@@ -63,5 +63,4 @@ const deleteFavoriteBook = async (req, res) => {
     }
 };
 
-
 export {addFavoriteBook, getFavoriteBooks, deleteFavoriteBook}

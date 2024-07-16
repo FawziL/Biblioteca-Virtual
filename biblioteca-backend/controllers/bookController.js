@@ -49,43 +49,43 @@ const createBook = async (req, res) => {
             author,
             pdfLocation
           });
-    } catch (error) {
+      } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
-  
+
 const deleteBook = async (req, res) => {
     try {
         const { id } = req.params;
   
-      // Validar que el ID sea proporcionado
+        // Validar que el ID sea proporcionado
         if (!id) {
           throw new Error('ID is required.');
         }
   
-      // Buscar el libro por ID
+        // Buscar el libro por ID
         const book = await Book.findByPk(id);
   
-      // Verificar si el libro existe
+        // Verificar si el libro existe
         if (!book) {
           return res.status(404).json({ error: 'Book not found.' });
         }
   
-      // Eliminar el libro
+        // Eliminar el libro
         await book.destroy();
 
-      // Elimina el archivo
+        // Elimina el archivo
       
         const filePath = path.join(uploadDir,'/uploads', book.pdfLocation)
         if(filePath){
             fs.unlinkSync(filePath);
         }
 
-      // Enviar respuesta de éxito
+        // Enviar respuesta de éxito
         res.status(200).json({ message: 'Book deleted successfully.' });
 
     } catch (error) {
-      // Manejar errores
+        // Manejar errores
         res.status(500).json({ error: error.message });
     }
 };
@@ -117,71 +117,71 @@ const findBookById = async (req, res) => {
 };
 
 const findBookByCategory = async (req, res) => {
-  try {
-    const { category } = req.params;
-
-    // Validar que la categoría sea proporcionada
-    if (!category) {
-      throw new Error('Category is required.');
+    try {
+        const { category } = req.params;
+    
+        // Validar que la categoría sea proporcionada
+        if (!category) {
+            throw new Error('Category is required.');
+        }
+    
+        // Buscar los libros por categoría utilizando findAll
+        const books = await Book.findAll({
+            where: {
+            category: category
+            }
+        });
+    
+        // Verificar si hay libros en la categoría
+        if (books.length === 0) {
+            return res.status(404).json({ error: 'No books found in this category.' });
+        }
+    
+        // Enviar respuesta con los libros encontrados
+        res.status(200).json(books);
+    
+    } catch (error) {
+        // Manejar errores
+        res.status(500).json({ error: error.message });
     }
-
-    // Buscar los libros por categoría utilizando findAll
-    const books = await Book.findAll({
-      where: {
-        category: category
-      }
-    });
-
-    // Verificar si hay libros en la categoría
-    if (books.length === 0) {
-      return res.status(404).json({ error: 'No books found in this category.' });
-    }
-
-    // Enviar respuesta con los libros encontrados
-    res.status(200).json(books);
-
-  } catch (error) {
-    // Manejar errores
-    res.status(500).json({ error: error.message });
-  }
 };
-
-const updateBook = async (req, res) => {9
+  
+const updateBook = async (req, res) => {
     try {
         const { id } = req.params;
         const { name, publicationYear, category, author } = req.body;
         const pdfLocation = req.file ? `uploads/${req.file.filename}` : null;
-    
+      
         // Validar que el ID sea proporcionado
         if (!id) {
-          throw new Error('ID is required.');
+            throw new Error('ID is required.');
         }
-    
+      
         // Buscar el libro por ID
         const book = await Book.findByPk(id);
-    
+      
         // Verificar si el libro existe
         if (!book) {
-          return res.status(404).json({ error: 'Book not found.' });
+            return res.status(404).json({ error: 'Book not found.' });
         }
         if(pdfLocation){
             const filePath = path.join(uploadDir, book.pdfLocation)
             fs.unlinkSync(filePath);
         }
-
+  
         // Actualizar los detalles del libro
         book.name = name || book.name;
         book.publicationYear = publicationYear || book.publicationYear;
         book.category = category || book.category;
         book.author = author || book.author;
         book.pdfLocation = pdfLocation || book.pdfLocation;
-
+  
         // Guardar los cambios
         await book.save();
-    
+      
         // Enviar respuesta con el libro actualizado
         res.status(200).json(book);
-
+  
     } catch (error) {
         // Manejar errores
         res.status(500).json({ error: error.message });
@@ -198,12 +198,12 @@ const searchBooks = async (req, res) => {
         const books = await Book.findAll({
           where: {
             [Op.or]: [
-              { name: { [Op.iLike]: `%${query}%` } },
-              { author: { [Op.iLike]: `%${query}%` } },
-              // Convertir publicationYear a string antes de aplicar LIKE
-              sequelize.where(sequelize.cast(sequelize.col('publicationYear'), 'TEXT'), {
-                [Op.like]: `%${query}%`
-              })
+                { name: { [Op.iLike]: `%${query}%` } },
+                { author: { [Op.iLike]: `%${query}%` } },
+                // Convertir publicationYear a string antes de aplicar LIKE
+                sequelize.where(sequelize.cast(sequelize.col('publicationYear'), 'TEXT'), {
+                    [Op.like]: `%${query}%`
+                })
             ]
           }
         });
@@ -217,20 +217,21 @@ const searchBooks = async (req, res) => {
 };
 
 const searchBook = async (req, res) => {
-  const { name, author, publicationYear, category } = req.query;
-  let query = {};
-  
-  if (name) query.name = { [Op.iLike]: `%${name}%` };
-  if (author) query.author = { [Op.iLike]: `%${author}%` };
-  if (publicationYear) query.publicationYear = publicationYear;
-  if (category) query.category = { [Op.iLike]: `%${category}%` };
+    const { name, author, publicationYear, category } = req.query;
+    let query = {};
+    
+    if (name) query.name = { [Op.iLike]: `%${name}%` };
+    if (author) query.author = { [Op.iLike]: `%${author}%` };
+    if (publicationYear) query.publicationYear = publicationYear;
+    if (category) query.category = { [Op.iLike]: `%${category}%` };
 
-  try {
-    const books = await Book.findAll({ where: query });
-    res.json(books);
-  } catch (error) { 
-    res.status(500).json({ error: 'Error searching for books' });
-  }
+    try {
+        const books = await Book.findAll({ where: query });
+        res.json(books);
+        
+    } catch (error) { 
+        res.status(500).json({ error: 'Error searching for books' });
+    }
 };
 
 const showBook = async (req, res) => {
@@ -247,37 +248,38 @@ const showBook = async (req, res) => {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+};
 
 const getAll = async (req, res) => {
-  try {
-    // Obtener todos los libros de la base de datos
-    const books = await Book.findAll();
+    try {
+        // Obtener todos los libros de la base de datos
+        const books = await Book.findAll();
+    
+        // Si no hay libros, enviar un mensaje correspondiente
+        if (books.length === 0) {
+            res.status(204).json({ message: 'No se encontraron libros.' });
+            return;
+        }
+  
+        // Transformar los libros en un formato adecuado para la respuesta
+        const formattedBooks = books.map(book => {
+            return {
+                id: book.id,
+                name: book.name,
+                publicationYear: book.publicationYear,
+                category: book.category,
+                author: book.author,
+                pdfLocation: book.pdfLocation,
+            };
+        });
+  
+        // Enviar la respuesta con la lista de libros formateados
+        res.status(200).json({ books: formattedBooks });
 
-    // Si no hay libros, enviar un mensaje correspondiente
-    if (books.length === 0) {
-      res.status(204).json({ message: 'No se encontraron libros.' });
-      return;
+    } catch (error) {
+        console.error('Error al obtener libros:', error);
+        res.status(500).json({ error: error.message });
     }
-
-    // Transformar los libros en un formato adecuado para la respuesta
-    const formattedBooks = books.map(book => {
-      return {
-        id: book.id,
-        name: book.name,
-        publicationYear: book.publicationYear,
-        category: book.category,
-        author: book.author,
-        pdfLocation: book.pdfLocation,
-      };
-    });
-
-    // Enviar la respuesta con la lista de libros formateados
-    res.status(200).json({ books: formattedBooks });
-  } catch (error) {
-    console.error('Error al obtener libros:', error);
-    res.status(500).json({ error: error.message });
-  }
 };
 
 export { createBook, deleteBook, findBookById, findBookByCategory, updateBook, searchBooks, searchBook, showBook, getAll };

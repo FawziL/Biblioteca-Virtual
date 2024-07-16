@@ -28,15 +28,11 @@ app.use('/api/users', userRoutes);
 app.use('/api/books', bookRoutes);
 app.use('/api/favoriteBooks', favoriteBookRoutes);
 
-
-app.use('/', (req, res) => {
-    res.send("Holaaa");
-});
-
 /*app.use(express.static(path.join(__dirname, "../biblioteca-frontend/dist")));
 app.get("*", (req, res) => {
 	res.sendFile(path.join(__dirname, "../biblioteca-frontend", "dist", "index.html"));
 });*/
+
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
