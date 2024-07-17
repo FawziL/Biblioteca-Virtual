@@ -83,7 +83,6 @@ const CreateBook = () => {
                     theme: "colored",
                 });
             }
-            console.log(response)
         } catch (error) {
             const errorMessage = error.response.data.error || 'Ha ocurrido un error al cargar el libro!';
             toast.error(errorMessage, {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import api from '../../services/Api';
+import { toast } from 'react-toastify';
 
 const DeleteButton = ({ id, onDelete }) => {
     const [isDeleting, setIsDeleting] = useState(false);
@@ -9,16 +10,37 @@ const DeleteButton = ({ id, onDelete }) => {
         setIsDeleting(true);
         setError(null);
 
-    try {
-        await api.delete(`/books/delete/${encodeURIComponent(id)}`);
-        onDelete(id); // Notify parent component about deletion
-    } catch (error) {
-        console.error('Error deleting PDF:', error.response.data);
-        setError(error);
-    } finally {
-        setIsDeleting(false);
-    }
-};
+        try {
+            await api.delete(`/books/delete/${encodeURIComponent(id)}`);
+            onDelete(id); 
+            toast.success('Se ha eliminado el libro!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        } catch (error) {
+            const errorMessage = error.response.data.error || 'Ha ocurrido un error al cargar el libro!';
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            setError(error);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     return (
         <div>
             <button onClick={handleDelete} disabled={isDeleting}>

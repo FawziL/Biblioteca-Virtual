@@ -32,13 +32,9 @@ const getFavoriteBooks = async (req, res) => {
             ]
         });
 
-        if (!favoriteBooks.length) {
-            return res.status(404).json({ error: 'No favorite books found for this user.' });
-        }
-
         res.status(200).json(favoriteBooks);
     } catch (error) {
-        console.error('Errorss:', error.message);
+        console.error('Error:', error.message);
         res.status(500).json({ error: error.message });
     }
 };

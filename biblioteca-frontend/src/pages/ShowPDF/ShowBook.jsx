@@ -55,27 +55,38 @@ const ShowBook = () => {
         init();
     }, [id]);
 
-    return (
+    const handlePrint = () => {
+        if (url) {
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        iframe.contentWindow.print();
+        }
+    };
+
+  return (
         <div>
             {isLoading ? (
                 <p>Cargando...</p>
             ) : url ? (
-              <div className='showBookContainer'>
-                  <div className='showBook'>
+                <div className='showBookContainer'>
+                    <div className='showBook'>
                         <h2>{bookDetails.name}</h2>
                         <h4>Autor: {bookDetails.author}</h4>
                         <h4>Año de publicación: {bookDetails.publicationYear}</h4>
                         <div className='showBookButtons'>
-                            <a href={url} download={`${bookDetails.name}.pdf`} target="_blank" rel="noopener noreferrer">
-                                    <button>Descargar PDF</button>
-                            </a>
-                            <a href={url} target="_blank" rel="noopener noreferrer">
-                                    <button>Ver en otra Pestaña</button>
-                            </a>
-                      </div>
-                  </div>
-                  <iframe src={url} title="PDF Preview" style={{ width: '50%', height: '800px' }} />
-              </div>
+                        <a href={url} download={`${bookDetails.name}.pdf`} target="_blank" rel="noopener noreferrer">
+                            <button className='buttonContent'>Descargar PDF</button>
+                        </a>
+                        <a href={url} target="_blank" rel="noopener noreferrer">
+                            <button className='buttonContent'>Ver en otra Pestaña</button>
+                        </a>
+                        <button className='buttonContent' onClick={handlePrint}>Imprimir</button>
+                        </div>
+                    </div>
+                    <iframe src={url} title="PDF Preview" style={{ width: '50%', height: '800px' }} />
+                </div>
             ) : (
                 <p>Error al cargar el PDF.</p>
             )}

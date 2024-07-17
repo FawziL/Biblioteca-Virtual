@@ -41,7 +41,7 @@ const FavoriteButton = ({ bookId, initialFavorite }) => {
                 }
             }
         } catch (error) {
-            const errorMessage = error.response.data.error || 'Ha ocurrido un error al cargar el libro!';
+            const errorMessage = error.response.data.error || 'Debes iniciar sesión para guardar tus libros en favoritos!';
             toast.error(errorMessage, {
                 position: "top-right",
                 autoClose: 3000,

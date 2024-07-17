@@ -132,11 +132,6 @@ const findBookByCategory = async (req, res) => {
             }
         });
     
-        // Verificar si hay libros en la categoría
-        if (books.length === 0) {
-            return res.status(404).json({ error: 'No books found in this category.' });
-        }
-    
         // Enviar respuesta con los libros encontrados
         res.status(200).json(books);
     

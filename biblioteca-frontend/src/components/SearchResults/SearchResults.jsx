@@ -1,28 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import BookCard from '../BookCard/BookCard';
 import Pagination from '../Pagination/Pagination';
-import api from '../../services/Api';
 import './SearchResults.css';
 
-const SearchResults = ({ books }) => {
+const SearchResults = ({ books, favoriteBooks }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [favoriteBooks, setFavoriteBooks] = useState([]);
     const resultsPerPage = 2; // Número de resultados por página
 
-    useEffect(() => {
-        const fetchFavoriteBooks = async () => {
-            try {
-                const response = await api.get('/favoriteBooks/getFavoriteBooks');
-                setFavoriteBooks(response.data);
-                console.log('Favorite Books:', response.data); // Verifica la estructura aquí
-            } catch (error) {
-                console.error('Error fetching favorite books', error.response?.data || error.message);
-            }
-        };
-        fetchFavoriteBooks();
-    }, []);
-
-    // Calcular el índice de los resultados que se mostrarán en la página actual
     const indexOfLastResult = currentPage * resultsPerPage;
     const indexOfFirstResult = indexOfLastResult - resultsPerPage;
     const currentResults = books.slice(indexOfFirstResult, indexOfLastResult);

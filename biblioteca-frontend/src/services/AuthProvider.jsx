@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const AuthContext = createContext();
 
@@ -25,6 +26,16 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('isAdmin');
         setIsLoggedIn(false);
         setIsAdmin(false);
+        toast.success('Has cerrado sesión con éxito.', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
     };
 
     return (

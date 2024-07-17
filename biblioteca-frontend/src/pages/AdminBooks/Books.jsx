@@ -47,7 +47,7 @@ const BookList = () => {
     return (
         <div>
             <SearchBooks onSearchResults={handleSearchResults} onCategoryChange={handleCategoryChange} />
-            <SearchResultsAdmin books={books} />
+            <SearchResultsAdmin books={books} setBooks={setBooks} />
         </div>
     );
 };

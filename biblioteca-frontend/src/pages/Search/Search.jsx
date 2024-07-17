@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../../services/Api';
 import SearchBooks from '../../components/SearchBook/SearchBooks';
 import SearchResults from '../../components/SearchResults/SearchResults';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../services/AuthProvider';
 
 const useQuery = () => {
     return new URLSearchParams(useLocation().search);
@@ -16,6 +17,7 @@ const Search = () => {
     const searchTerm = query.get('query');
     const searchCategory = query.get('category');
     const navigate = useNavigate();
+    const { isLoggedIn } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -24,14 +26,34 @@ const Search = () => {
                     const response = await api.get('/books/searchBooks', { params: { query: searchTerm } });
                     setBooks(response.data);
                 } catch (error) {
-                    console.error('Error searching for books', error.response?.data || error.message);
+                    const errorMessage = error.response.data.error || 'Sin resultados!';
+                    toast.error(errorMessage, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
                 }
             } else if (searchCategory) {
                 try {
                     const response = await api.get(`/books/category/${searchCategory}`);
                     setBooks(response.data);
                 } catch (error) {
-                    console.error('Error fetching books by category', error.response?.data || error.message);
+                    const errorMessage = error.response.data.error || 'No se han encontrado libros en esta categoría!';
+                    toast.error(errorMessage, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
                 }
             }
         };
@@ -44,9 +66,12 @@ const Search = () => {
                 console.error('Error fetching favorite books', error.response?.data || error.message);
             }
         };
-
+        
+        if(isLoggedIn){
+            fetchFavoriteBooks();
+        }
         fetchBooks();
-        fetchFavoriteBooks();
+        
     }, [searchTerm, searchCategory]);
 
     const handleSearchResults = (results) => {
