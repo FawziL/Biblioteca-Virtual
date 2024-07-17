@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import api from '../../services/Api';
+import { toast } from 'react-toastify';
 
 const RequestPasswordReset = () => {
     const [email, setEmail] = useState('');
@@ -8,9 +9,28 @@ const RequestPasswordReset = () => {
         e.preventDefault();
         try {
             await api.post('/users/requestPasswordReset', { email });
-            alert('Te llegará un correo a tu email. Ya puedes cerrar esta ventana.');
+            toast.success('Te llegará un correo a tu email. Ya puedes cerrar esta ventana.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         } catch (error) {
-            console.error('Error requesting password reset', error.response?.data || error.message);
+            const errorMessage = error.response.data.error || 'No se encontró el email.';
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     };
 

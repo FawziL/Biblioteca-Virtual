@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import api from '../../services/Api';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../services/AuthProvider';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -14,14 +15,34 @@ const Login = () => {
         try {
             const response = await api.post('/users/login', { email, password });
             const { token, admin } = response.data;
-            
             // Actualizar el estado global de autenticación
             login(token, admin);
-            
-            // Navegar a la página principal
-            navigate('/');
+
+            toast.success('Te has logeado con éxito, te redirigiremos a Home al finalizar este mensaje.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                onClose: () => navigate('/')
+            });
+
         } catch (error) {
             console.error('Error al iniciar sesión', error.response?.data || error.message);
+            const errorMessage = error.response.data.error || 'Error al iniciar sesión';
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     };
 

@@ -7,6 +7,7 @@ dotenv.config();
 
 const secretKey = process.env.JWT_SECRET;
 const resetTokenSecret = process.env.RESET_TOKEN_SECRET;
+const emailUser = process.env.EMAIL_USER;
 
 const signup = async (req, res) => {
 	try {
@@ -97,7 +98,7 @@ const requestPasswordReset = async (req, res) => {
     try {
         const user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).json({ error: 'Email not found' });
         }
 
         const resetToken = jwt.sign({ userId: user.idCard }, resetTokenSecret);
@@ -114,6 +115,7 @@ const requestPasswordReset = async (req, res) => {
 
         res.status(200).json({ message: 'Password reset email sent' });
     } catch (error) {
+		console.log({ error: error.message })
         res.status(500).json({ error: error.message });
     }
 };

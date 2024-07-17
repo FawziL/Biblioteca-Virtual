@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import api from '../../services/Api';
+import { toast } from 'react-toastify';
 
 const CreateBook = () => {
     const [formData, setFormData] = useState({
@@ -35,6 +36,16 @@ const CreateBook = () => {
                     pdf: null,
                     });
                 setErrorMessage('Only PDF files are allowed');
+                toast.error('Only PDF files are allowed', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             }
         }
     };
@@ -60,11 +71,31 @@ const CreateBook = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log('Book created successfully:', response.data);
-            // Add any additional logic here after successful book creation
+            if (response.status === 200) {
+                toast.success('Se ha agregado el libro!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+            console.log(response)
         } catch (error) {
-            console.error('Error creating book:', error.response?.data || error.message);
-            // Handle book creation errors
+            const errorMessage = error.response.data.error || 'Ha ocurrido un error al cargar el libro!';
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     };
 

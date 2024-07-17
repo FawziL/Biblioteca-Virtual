@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../../services/Api';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const EditBook = () => {
     const [formData, setFormData] = useState({
@@ -37,12 +38,36 @@ const EditBook = () => {
                     pdf: null,
                 });
                 setErrorMessage('Only PDF files are allowed');
+                toast.error('Only PDF files are allowed', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             }
-          }
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (formData.pdf && !formData.pdf.name.endsWith('.pdf')) {
+            toast.error('Please select a valid PDF file.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            return;
+        }
 
         const form = new FormData();
         form.append('name', formData.name);
@@ -52,14 +77,34 @@ const EditBook = () => {
         form.append('pdf', formData.pdf);
 
         try {
-            const response = await api.post(`/books/update/${encodeURIComponent(id)}`, form, {
+            await api.post(`/books/update/${encodeURIComponent(id)}`, form, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log('Book created successfully:', response.data);
+
+            toast.success('Se ha modificado el libro con el ID: ' + id, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+
         } catch (error) {
-            console.error('Error creating book:', error.response?.data || error.message);
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     };
 

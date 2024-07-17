@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../../services/Api';
+import { toast } from 'react-toastify';
 
 const useQuery = () => {
     return new URLSearchParams(useLocation().search);
@@ -16,15 +17,43 @@ const ResetPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) {
-            alert('Passwords do not match');
+            toast.error("Las contraseñas no coinciden!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
             return;
         }
         try {
             await api.post('/users/resetPassword', { token, newPassword });
-            alert('Password has been reset');
-            navigate('/login');
+            toast.success('Tu contraseña ha sido modificada.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            
         } catch (error) {
-            console.error('Error resetting password', error.response?.data || error.message);
+            const errorMessage = error.response.data.error || 'Ocurrió un error al modificar la contraseña.';
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     };
 

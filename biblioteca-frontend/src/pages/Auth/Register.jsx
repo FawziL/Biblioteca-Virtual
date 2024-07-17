@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import api from '../../services/Api';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const [fullName, setFullName] = useState('');
@@ -11,19 +12,48 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
-            alert('Passwords do not match!');
+            toast.error("Las contraseñas no coinciden!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
             return;
         }
         try {
-            const response = await api.post('/users/signup', { fullName, email, password, confirmPassword, idCard });
-            localStorage.setItem('token', response.data.token);
-            navigate('/login');
+            await api.post('/users/signup', { fullName, email, password, confirmPassword, idCard });
+
+            toast.success('Te has registrado con éxito, te redirigiremos a Login al finalizar este mensaje.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                onClose: () => navigate('/login')
+            });
+
         } catch (error) {
-            console.error('Error al registrarse', error.response.data);
+            const errorMessage = error.response.data.error || 'Error al crear una cuenta.';
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     };
 

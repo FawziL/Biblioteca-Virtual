@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import api from '../../services/Api';
+import { toast } from 'react-toastify';
 
 const FavoriteButton = ({ bookId, initialFavorite }) => {
     const [isFavorite, setIsFavorite] = useState(initialFavorite);
@@ -10,17 +11,47 @@ const FavoriteButton = ({ bookId, initialFavorite }) => {
                 const response = await api.delete('/favoriteBooks/deleteFavoriteBook', { data: { bookId } });
                 if (response.status === 200) {
                     setIsFavorite(false);
-                    console.log("HAS BORRADO CON EXITO EL LIBRO");
+                    const reqMessage = response.data.message || 'Has eleminado el libro!';
+                    toast.success(reqMessage, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
                 }
             } else {
                 const response = await api.post('/favoriteBooks/add', { bookId });
                 if (response.status === 201) {
                     setIsFavorite(true);
-                    console.log("HAS AGREGADO CON EXITO EL LIBRO");
+                    const reqMessage = response.data.message || 'Has agregado el libro a favoritos!';
+                    toast.success(reqMessage, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
                 }
             }
         } catch (error) {
-            console.error('Error updating favorite status', error.response?.data || error.message);
+            const errorMessage = error.response.data.error || 'Ha ocurrido un error al cargar el libro!';
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     };
 

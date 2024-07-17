@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../../services/Api';
 import SearchBooks from '../../components/SearchBook/SearchBooks';
 import SearchResults from '../../components/SearchResults/SearchResults';
+import { toast } from 'react-toastify';
 
 const useQuery = () => {
     return new URLSearchParams(useLocation().search);
