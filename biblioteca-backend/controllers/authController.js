@@ -103,6 +103,7 @@ const requestPasswordReset = async (req, res) => {
 
         const resetToken = jwt.sign({ userId: user.idCard }, resetTokenSecret);
         const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
+		/* Hay que cambiar este en el deploy*/
 
         const mailOptions = {
             from: emailUser,
