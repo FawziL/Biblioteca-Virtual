@@ -34,7 +34,6 @@ const signup = async (req, res) => {
 			email,
 			idCard,
 			password: hashedPassword,
-			admin: true,
 		});
 		
 		await newUser.save();
@@ -103,7 +102,7 @@ const requestPasswordReset = async (req, res) => {
         }
 
         const resetToken = jwt.sign({ userId: user.idCard }, resetTokenSecret);
-        const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
+        const resetLink = `https://biblioteca-virtual.onrender.com/reset-password?token=${resetToken}`;
 		/* Hay que cambiar este en el deploy*/
 
         const mailOptions = {
