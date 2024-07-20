@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: '../.env' });
 import path from 'path';
 import cors from "cors";
 import methodOverride from 'method-override';
