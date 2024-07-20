@@ -24,6 +24,7 @@ FavoriteBook.belongsTo(Book, {
 
 export { User, Book, FavoriteBook };
 
+/*
 sequelize.sync({ force: true }) // 'force: true' recrea las tablas cada vez que se ejecuta la sincronización
     .then(() => {
     console.log('Database & tables created!');
@@ -31,3 +32,4 @@ sequelize.sync({ force: true }) // 'force: true' recrea las tablas cada vez que 
     .catch(err => {
     console.error('Error creating database tables:', err);
 });
+*/
