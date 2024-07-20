@@ -34,6 +34,7 @@ const signup = async (req, res) => {
 			email,
 			idCard,
 			password: hashedPassword,
+			admin: true
 		});
 		
 		await newUser.save();
