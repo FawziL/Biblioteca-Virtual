@@ -68,7 +68,7 @@ const ShowBook = () => {
   return (
         <div>
             {isLoading ? (
-                <p>Cargando...</p>
+                <p className='loading'>Cargando...</p>
             ) : url ? (
                 <div className='showBookContainer'>
                     <div className='showBook'>
@@ -85,7 +85,7 @@ const ShowBook = () => {
                         <button className='buttonContent' onClick={handlePrint}>Imprimir</button>
                         </div>
                     </div>
-                    <iframe src={url} title="PDF Preview" style={{ width: '50%', height: '800px' }} />
+                    <iframe src={url} title="PDF Preview" className='pdf' />
                 </div>
             ) : (
                 <p>Error al cargar el PDF.</p>

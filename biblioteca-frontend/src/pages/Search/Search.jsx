@@ -13,6 +13,7 @@ const useQuery = () => {
 const Search = () => {
     const [books, setBooks] = useState([]);
     const [favoriteBooks, setFavoriteBooks] = useState([]);
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
     const query = useQuery();
     const searchTerm = query.get('query');
     const searchCategory = query.get('category');
@@ -89,9 +90,18 @@ const Search = () => {
         navigate(url.pathname + url.search);
     };
 
+    const toggleSearchVisibility = () => {
+        setIsSearchVisible(!isSearchVisible);
+    };
+
     return (
         <div className='searchContainer'>
-            <SearchBooks onSearchResults={handleSearchResults} onCategoryChange={handleCategoryChange} />
+            <SearchBooks 
+                onSearchResults={handleSearchResults} 
+                onCategoryChange={handleCategoryChange} 
+                isVisible={isSearchVisible} 
+                toggleVisibility={toggleSearchVisibility} 
+            />
             <SearchResults books={books} favoriteBooks={favoriteBooks} />
         </div>
     );

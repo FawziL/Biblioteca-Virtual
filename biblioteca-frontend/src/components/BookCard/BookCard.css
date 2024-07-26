@@ -2,6 +2,7 @@
     background-color: rgb(230, 231, 231);
     padding: 12px;
     color: black;
+    max-width: 700px;
     width: 700px;
     border-radius: 5px;
     margin: 14px;
@@ -10,6 +11,7 @@
 }
 .cardBook h2, .cardBook  h4{
     margin: 5px;
+    text-align: start;
 }
 .buttons{
     display: flex;
@@ -26,4 +28,32 @@
 .heart svg{
     height: 40px;
     width: 40px;
+}
+
+@media (width <= 500px) {
+    .cardBook{
+        padding: 8px;
+        color: black;
+        width: 80%;
+    }
+    .cardBook h2{
+        font-size: 1.4rem;
+    }
+    .cardBook  h4{
+        font-size: 1rem;
+    }
+}
+
+@media ( 500px <= width <= 1200px) {
+    .cardBook{
+        padding: 8px;
+        color: black;
+        width: 80%;
+    }
+    .cardBook h2{
+        font-size: 1.4rem;
+    }
+    .cardBook  h4{
+        font-size: 1rem;
+    }
 }

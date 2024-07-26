@@ -47,7 +47,7 @@ const FavoriteBooks = () => {
             {favoriteBooks.length === 0 ? (
                 <p>No has agregado libros a favoritos.</p>
             ) : (
-                <div className="books-grid">
+                <div className="booksGrid">
                     {currentResults.map(favBook => (
                         <BookCard key={favBook.id} book={favBook.Book} isFavorite={isFavorite}/>
                     ))}

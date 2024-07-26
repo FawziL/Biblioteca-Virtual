@@ -12,6 +12,7 @@ const BookList = () => {
     const [books, setBooks] = useState([]);
     const query = useQuery();
     const searchCategory = query.get('category');
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -44,9 +45,18 @@ const BookList = () => {
         navigate(url.pathname + url.search);
     };
 
+    const toggleSearchVisibility = () => {
+        setIsSearchVisible(!isSearchVisible);
+    };
+
     return (
         <div>
-            <SearchBooks onSearchResults={handleSearchResults} onCategoryChange={handleCategoryChange} />
+            <SearchBooks 
+                onSearchResults={handleSearchResults} 
+                onCategoryChange={handleCategoryChange} 
+                isVisible={isSearchVisible} 
+                toggleVisibility={toggleSearchVisibility} 
+            />
             <SearchResultsAdmin books={books} setBooks={setBooks} />
         </div>
     );

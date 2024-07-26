@@ -9,9 +9,26 @@
     background-color: white;
     min-height: 98vh;
 }
-.resultsSection h2, .resultsSection h3{
+.resultsSection h2{
     color: black;
 }
 .resultsSection h3{
     margin-top: 0px;
+    color: black;
+    text-align: start;
+}
+
+@media (width <= 500px) {
+    .resultsSection{
+        margin-left: 0px;
+        padding-bottom: 20px;
+        min-height: 90vh;
+    }
+}
+@media  (501px <= width <= 900px) {
+    .resultsSection{
+        margin-left: 0px;
+        padding-bottom: 20px;
+        min-height: 90vh;
+    }
 }

@@ -19,7 +19,7 @@ const Home = () => {
         <>
             <section className='home'>
                 <h1>Busca y encuentra información digital</h1>
-                <h2>Encontrarás libros con información relevante a tu carrera universitaria</h2>
+                <p>Encontrarás libros con información relevante a tu carrera universitaria</p>
                 <form onSubmit={handleSearch} className="search-form">
                     <div className="search-container">
                         <input 
@@ -41,6 +41,7 @@ const Home = () => {
             </section>
 
             <section className="content-section">
+                <div className='card-content-section'>
                 <div className="text-container">
                     <h2>Guarda tus libros favoritos</h2>
                     <p>Regístrate para poder guardar y acceder a tus libros favoritos en cualquier momento.</p>
@@ -54,6 +55,7 @@ const Home = () => {
                     </div>
                 </div> 
                 <img src={imgCTA} alt="Descripción de la imagen" />
+                </div>
             </section>
 
             <section className='CallToAction'>

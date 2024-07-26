@@ -17,3 +17,24 @@
     margin: 10px;
     margin-top: 0px;
 }
+.pdf{
+    width: 50%;
+    height: 800px
+} 
+
+@media (width <= 500px) {
+    .showBookButtons{
+        display: block;
+    }
+    .pdf{
+        display: none;
+    }
+    .showBookButtons button{
+        margin: 10px;
+        margin-bottom: 12px;
+    }
+    .loading{
+        text-align: center;
+        padding: 5vh;
+    }
+}

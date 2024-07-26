@@ -1,9 +1,0 @@
-.searchContainer{
-    background-color: #a31010;
-}
-
-.searchControls {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
