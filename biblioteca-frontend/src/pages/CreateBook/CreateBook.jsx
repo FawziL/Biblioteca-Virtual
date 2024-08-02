@@ -104,7 +104,7 @@ const CreateBook = () => {
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className='field'>
                     <p>Nombre del Libro:</p>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Name of book"/>
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Book name"/>
                 </div>
                 <div className='field'>
                     <p>Año de Publicación:</p>
@@ -112,8 +112,16 @@ const CreateBook = () => {
                 </div>
                 <div className='field'>
                     <p>Categoría:</p>
-                    <input type="text" name="category" value={formData.category} onChange={handleChange} required placeholder="Category"/>
+                    <input list='categories' name='category' value={formData.category} onChange={handleChange} required placeholder="Category"/>
                 </div>
+                <datalist id='categories'>
+                    <option value="Sátira"></option>
+                    <option value="Ciencia"></option>
+                    <option value="Psicología"></option>
+                    <option value="Fantasía"></option>
+                    <option value="Pasantías"></option>
+                    <option value="Trabajo Especial de Grado"></option>
+                </datalist>
                 <div className='field'>
                     <p>Autor:</p>
                     <input type="text" name="author" value={formData.author} onChange={handleChange} required placeholder="Author Name"/>

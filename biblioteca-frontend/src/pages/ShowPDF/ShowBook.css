@@ -21,6 +21,10 @@
     width: 50%;
     height: 800px
 } 
+.loading{
+    text-align: center;
+    padding: 5vh;
+}
 
 @media (width <= 500px) {
     .showBookButtons{
@@ -32,9 +36,5 @@
     .showBookButtons button{
         margin: 10px;
         margin-bottom: 12px;
-    }
-    .loading{
-        text-align: center;
-        padding: 5vh;
     }
 }

@@ -60,7 +60,7 @@ const Home = () => {
 
             <section className='CallToAction'>
                 <div>
-                    <h2>Queremos brindar las mejores oportunidades para nuestros estudiantes</h2>
+                    <h2>¡Aquí están los mejores!</h2>
                     <p>Con este nuevo catálogo podrás encontrar libros académicos necesarios para tu carrera.</p>
                     <a href="/search">
                         <button className='buttonBlue'>Buscar libros</button>

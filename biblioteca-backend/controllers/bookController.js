@@ -119,6 +119,7 @@ const findBookById = async (req, res) => {
 const findBookByCategory = async (req, res) => {
     try {
         const { category } = req.params;
+        console.log(category)
     
         // Validar que la categoría sea proporcionada
         if (!category) {
@@ -128,7 +129,9 @@ const findBookByCategory = async (req, res) => {
         // Buscar los libros por categoría utilizando findAll
         const books = await Book.findAll({
             where: {
-            category: category
+                category: {
+                    [Op.iLike]: category
+                }
             }
         });
     

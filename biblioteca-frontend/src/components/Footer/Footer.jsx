@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
 import './Footer.css';
+import logo from '../../assets/logo.png'
 
 const Footer = () => {
     return (
         <footer>
+            <img src={logo} alt="logo" />
             <div>
                 <h4>Recursos</h4>
                 <a>Ayuda</a>
@@ -12,8 +13,8 @@ const Footer = () => {
             </div>
             <div>
                 <h4>Contacto</h4>
-                    <p>Correo: info@bibpotecavirtual.com</p>
-                    <p>Teléfono: +1 (555) 123-4567</p>
+                    <p>Correo: barquisimeto@uts.edu.ve</p>
+                    <p>Teléfono: (0251) 9351767 / 252.49.82</p>
             </div>
             <div className='footerMargin'>
                 <h4>Derechos de Autor</h4>

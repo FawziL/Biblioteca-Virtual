@@ -1,5 +1,5 @@
 .cardBook{
-    background-color: rgb(230, 231, 231);
+    background-color: rgba(241, 244, 244, 0.685);
     padding: 12px;
     color: black;
     max-width: 700px;
@@ -22,7 +22,7 @@
 }
 
 .heart{
-    background-color: rgb(230, 231, 231);
+    background-color: rgba(241, 244, 244, 0.685);
     padding: 0px;
 }
 .heart svg{

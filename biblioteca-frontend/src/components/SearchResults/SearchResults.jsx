@@ -22,7 +22,7 @@ const SearchResults = ({ books, favoriteBooks }) => {
 
     return (
         <div className='resultsSection'>
-            <h2>Resultados de la búsqueda</h2>
+            <h2 className='tileResultSection'>Resultados de la búsqueda</h2>
             <h3>Resultados Totales: {books.length}</h3>
             {books.length === 0 ? (
                 <h3>No se han encontrado resultados.</h3>

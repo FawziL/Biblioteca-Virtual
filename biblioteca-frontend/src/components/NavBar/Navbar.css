@@ -2,11 +2,11 @@
 nav {
     background-color: #1f1f1fb0;
     padding: 0px;
-    z-index: 2;
+    z-index: 3;
     position: relative;
     box-shadow: 0px 1px 5px #00000080;
     display: flex;
-    justify-content: center;
+    width: 100%;
 }
 .navbar{
     display: flex;
@@ -18,13 +18,21 @@ ul {
     display: flex;
     padding: 0px;
     justify-content: center;
+    margin: 0px;
 }
   
 li {
-    display: inline;
-    margin: 0px 10px 0px 10px;
+    margin: 0px 15px 0px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-  
+.logo{
+    width: 65px;
+    height: 65px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
 a {
     color: white;
     text-decoration: none;
@@ -33,16 +41,28 @@ a {
 a:hover {
     text-decoration: underline;
 }
+.off{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-right: 130px;
+}
 
-@media (width < 600px) {
+@media (width < 620px) {
     nav{
         display: block;
     }
+    .logo{
+        margin-left: 0px;
+        width: 50px;
+        height: 50px;
+    }
     .navbar-links{
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         padding: 10px;
-        margin: 0px;
+        margin-left: 24px;
+        margin-right: 24px;
     }
     .navbar-links li{
         margin: 0px;
@@ -65,10 +85,10 @@ a:hover {
         display: none;
     }
     .on {
-        height: 60px;
+        max-height: 80px;
         opacity: 1;
         padding-top: 20px;
-        padding-bottom: 30px;
+        padding-bottom: 20px;
         margin: 0px;
     }
     #buttonToggle{
@@ -77,11 +97,27 @@ a:hover {
         padding: 0px;
         border: none;
         border-radius: 0px;
-        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
     }
     #buttonToggle svg{
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 35px;
+    }
+    .menuRotated{
+        transform: rotate(90deg);
+        transition: 500ms;
+      } 
+      .menuNoRotated{
+        transform: rotate(0deg);
+        transition: 500ms;
+      }
+}
+@media (621px< width < 900px) {
+    .off{
+        margin-right: 40px;
     }
 }
 @media (min-width: 601px) {

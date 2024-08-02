@@ -42,7 +42,6 @@ const SearchBooks = ({ onSearchResults, onCategoryChange, isVisible, toggleVisib
                 } 
             </button>
             <div className='content'>
-                <h2>Buscar Libros</h2>
                 <form onSubmit={handleSubmit} className='searchForm'>
                     <h3>Categorías</h3>
                     <div className='searchCategories'>
@@ -51,24 +50,24 @@ const SearchBooks = ({ onSearchResults, onCategoryChange, isVisible, toggleVisib
                         <a onClick={() => handleCategoryClick('Psicología')}>Psicología</a>
                         <a onClick={() => handleCategoryClick('Fantasía')}>Fantasía</a>
                         <a onClick={() => handleCategoryClick('Pasantías')}>Pasantías</a>
-                        <a onClick={() => handleCategoryClick('TEG')}>Trabajo Especial de Grado</a>
+                        <a onClick={() => handleCategoryClick('Trabajo Especial de Grado')}>Trabajo Especial de Grado</a>
                     </div>
                     <h3>Busqueda Avanzada</h3>
                     <div>
                         <label>Nombre del libro:</label>
-                        <input type="text" name="name" value={searchParams.name} onChange={handleChange} placeholder='Name of the book' />
+                        <input type="text" name="name" value={searchParams.name} onChange={handleChange} placeholder='Nombre del libro' />
                     </div>
                     <div>
                         <label>Autor del libro:</label>
-                        <input type="text" name="author" value={searchParams.author} onChange={handleChange} placeholder='Author of the book' />
+                        <input type="text" name="author" value={searchParams.author} onChange={handleChange} placeholder='Autor del libro' />
                     </div>
                     <div>
                         <label>Año de Publicación:</label>
-                        <input type="number" name="publicationYear" value={searchParams.publicationYear} onChange={handleChange} placeholder='Publication Year' />
+                        <input type="number" name="publicationYear" value={searchParams.publicationYear} onChange={handleChange} placeholder='Año de Publicación' />
                     </div>
                     <div>
                         <label>Categoría:</label>
-                        <input type="text" name="category" value={searchParams.category} onChange={handleChange} placeholder='Category of the book' />
+                        <input type="text" name="category" value={searchParams.category} onChange={handleChange} placeholder='Categoría' />
                     </div>
                     <button className='buttonBlue' type="submit">Buscar</button>
                 </form>
