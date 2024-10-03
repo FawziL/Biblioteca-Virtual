@@ -8,6 +8,9 @@ dotenv.config();
 const secretKey = process.env.JWT_SECRET;
 const resetTokenSecret = process.env.RESET_TOKEN_SECRET;
 const emailUser = process.env.EMAIL_USER;
+const isProduction = process.env.NODE_ENV === 'production';
+const backendUrl = isProduction ? process.env.BACKEND_URL_PROD : process.env.BACKEND_URL_DEV;
+console.log(backendUrl)
 
 const signup = async (req, res) => {
 	try {
@@ -102,21 +105,32 @@ const requestPasswordReset = async (req, res) => {
         }
 
         const resetToken = jwt.sign({ userId: user.idCard }, resetTokenSecret);
-        const resetLink = `https://biblioteca-virtual.onrender.com/reset-password?token=${resetToken}`;
-		/* Hay que cambiar este en el deploy*/
+        const resetLink = `${backendUrl}/reset-password?token=${resetToken}`;
 
         const mailOptions = {
             from: emailUser,
             to: user.email,
-            subject: 'Password Reset',
-            text: `Click here to reset your password: ${resetLink}`,
+            subject: 'Password Reset Request',
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd;">
+                    <h2 style="color: #333;">Password Reset Request</h2>
+                    <p>Dear ${user.name || 'User'},</p>
+                    <p>You requested a password reset for your account on Biblioteca Virtual. Please click the button below to reset your password. If you did not request this, you can safely ignore this email.</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="${resetLink}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Reset Password</a>
+                    </div>
+                    <p style="color: #555;">If the button above doesn't work, copy and paste the following link into your browser:</p>
+                    <p style="color: #777; word-wrap: break-word;">${resetLink}</p>
+                    <p style="margin-top: 20px;">Best regards,<br>The Biblioteca Virtual Team</p>
+                </div>
+            `,
         };
 
         await transporter.sendMail(mailOptions);
 
         res.status(200).json({ message: 'Password reset email sent' });
     } catch (error) {
-		console.log({ error: error.message })
+        console.log({ error: error.message });
         res.status(500).json({ error: error.message });
     }
 };

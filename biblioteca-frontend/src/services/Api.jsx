@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+const baseURL = import.meta.env.VITE_ENV === 'development'
+    ? "http://localhost:8080/api"
+    : "https://biblioteca-virtual.onrender.com"
+
 const api = axios.create({
-    baseURL: 'https://biblioteca-virtual.onrender.com/api',
+    baseURL,
 });
 
 api.interceptors.request.use((config) => {

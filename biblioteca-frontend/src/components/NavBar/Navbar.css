@@ -45,7 +45,7 @@ a:hover {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-right: 130px;
+    margin-right: 160px;
 }
 
 @media (width < 620px) {
